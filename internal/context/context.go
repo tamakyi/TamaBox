@@ -205,7 +205,7 @@ func Contexter() flamego.Handler {
 			}
 		}
 
-		c.SetTitle("狼的公告板")
+		c.SetTitle("狼的提问箱")
 		c.Data["CSRFToken"] = x.Token()
 		c.Data["CSRFTokenHTML"] = templatepkg.Safe(`<input type="hidden" name="_csrf" value="` + x.Token() + `">`)
 
