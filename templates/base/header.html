@@ -15,6 +15,7 @@
   {{ else }}
   <script src="{{.RecaptchaDomain}}/recaptcha/api.js" async defer></script>
   <script>function onSubmit() {document.getElementById('form').submit();}</script>
+  <script type="text/javascript" src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/jquery-3.7.1.min.js"></script>
   {{ end }}
   {{ if ne SentryDSN "" }}
   <script
