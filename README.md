@@ -1,91 +1,72 @@
 <h1 align="center">
 <img src="https://nekobox-public.oss-cn-hangzhou.aliyuncs.com/images/Neko.png" width=100px/>
 
-NekoBox
+狼的提问箱
 </h1>
 
 <p align="center">
 匿名提问箱 / Anonymous Question Box
-</p>
-<p align="center">
-<a href="https://goreportcard.com/badge/github.com/NekoWheel/NekoBox">
-    <img src="https://github.com/NekoWheel/NekoBox/workflows/Go/badge.svg" alt="Go Report Card">
-</a>
-<a href="https://sourcegraph.com/github.com/NekoWheel/NekoBox">
-    <img src="https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?logo=sourcegraph" alt="Sourcegraph">
-</a>
-<a href="https://deepsource.io/gh/NekoWheel/NekoBox/?ref=repository-badge">
-    <img src="https://deepsource.io/gh/NekoWheel/NekoBox.svg/?label=active+issues&token=7nuU5C-4QG3CP_5g9qFf3Bl9" alt="DeepSource">
-</a>
-<a href="https://goreportcard.com/report/github.com/NekoWheel/NekoBox">
-    <img src="https://goreportcard.com/badge/github.com/NekoWheel/NekoBox" alt="Go Report Card">
-<a>
-</p>
 
-<p align="center">
-<a href="/README.zh-CN.md">简体中文</a> | <a href="/README.md">English</a>
-</p>
 
-![Screenshot](./dev/screenshot.svg)
+## 安装
 
-## Installation
+### 需求
 
-### Prerequisite
+* [Go](https://golang.org/dl/) (v1.19 或更高版本)
+* [MySQL](https://www.mysql.com/downloads/) (v5.7 或更高版本)
+* [Redis](https://redis.io/download/) (v6.0 或更高版本)
 
-* [Go](https://golang.org/dl/) (v1.19 or higher)
-* [MySQL](https://www.mysql.com/downloads/) (v5.7 or higher)
-* [Redis](https://redis.io/download/) (v6.0 or higher)
-
-### Build from source
+### 从源码编译
 
 ```bash
-git clone https://github.com/NekoWheel/NekoBox.git
+git clone https://github.com/tamakyi/TamaBox.git
 
-cd NekoBox
+cd TamaBox
 
-go build -o NekoBox
+go build -o TamaBox
 ```
 
-### Edit the configuration file
+### 编辑配置文件
 
 ```bash
 cp conf/app.sample.ini conf/app.ini
 ```
 
-### Run
+### 运行
 
 ```bash
-./NekoBox web
+./TamaBox web
 ```
 
-## Architecture
+## 架构
 
 ![Architecture](./dev/nekobox-arch-light.png#gh-light-mode-only)
 ![Architecture](./dev/nekobox-arch-dark.png#gh-dark-mode-only)
 
-NekoBox uses GitHub Actions for continuous integration and deployment.
+NekoBox 使用 GitHub Actions 进行持续集成和部署。
 
-When a user visit NekoBox, the
-request will be routed to Aliyun CDN, the CDN access logs will be collected and pushed to Aliyun simple log service
-(SLS) in realtime. The log data will be stored in SLS for 180 days for audit purposes.
+当用户访问 NekoBox 时，请求将会被发送至阿里云 CDN，CDN 的访问日志将会被实时推送到阿里云日志服务
+(SLS)。日志数据将在 SLS 中存储 180 天，用于审计。
 
-User's profile, questions and answers will be stored in MySQL database.
+用户的信息、提问和回答将被存储在 MySQL 数据库中。
 
-User's session, CSRF token and email verification token will be stored in Redis temporarily.
+用户的会话、CSRF 令牌和电子邮件验证令牌将被暂时存储在 Redis 中。
 
-The entire request and response chain will be uploaded to Uptrace for debugging purposes. The data will be stored in
-Uptrace for 30 days. Administrators can use the `TraceID` provided by users to query the specified request context.
+用户的整个请求和响应链路将被上传到 Uptrace 用于调试。这些数据将被储存 30 天。管理员可以使用用户提供的 `TraceID`
+来追踪查询指定的请求。
 
-When a user submits a question, the content of the question will be sent to Qiniu text censoring service for review. If
-the content is not suitable, the content will then be sent to Aliyun text censoring service for a second review. If the
-content still does not pass, the question will be rejected. This is because the Qiniu text censoring service is not very
-accurate, some non-offensive content may also be rejected by the Qiniu's service.
+当用户提交提问时，问题的内容将被发送到七牛文本审查服务进行审查。如果提问内容存在问题，该内容将被发送到阿里云文本审查服务进行二次审查。
+如果内容审查仍未通过，该提问将被拒绝发送。这是由于七牛文本审查服务不是很准确，一些非冒犯性的内容可能被七牛文本审查误报。
 
-When a user received a new question, an email will be sent to the user's email address by Aliyun mail service (DM).
+当用户收到新的提问时，阿里云邮件服务（DM）会向用户的邮箱发送一封邮件。
 
-In the main page, you can check out the changelogs of NekoBox, and you can visit the sponsor page to support NekoBox at
-the bottom of the page. The changelogs and sponsor list are stored in a Pocketbase service which is deployed separately.
+你可以在主页查看 NekoBox 的更新日志，也欢迎访问赞助页面来打钱支持 NekoBox。 更新日志和赞助商名单存储在独立部署的
+Pocketbase 服务中。
 
-## License
+## 开源协议
 
 MIT License
+
+## 备注
+
+* 基于原版[Nekobox](https://github.com/NekoWheel/NekoBox)修改，基本与原版无异，主要是添加了个人主页二维码和首页统计数，并修改了部分适合自己的参数。

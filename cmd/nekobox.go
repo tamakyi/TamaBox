@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 
-	"github.com/NekoWheel/NekoBox/internal/cmd"
+	"github.com/tamakyi/TamaBox/internal/cmd"
 )
 
 func main() {
