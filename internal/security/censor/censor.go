@@ -29,8 +29,8 @@ func Text(ctx context.Context, text string) (*TextCensorResponse, error) {
 	var responses []*TextCensorResponse
 
 	for _, censor := range []TextCensor{
-		// For we are using aliyun's API, we don't need to use qiniu's API.
-		//NewQiniuTextCensor(conf.App.QiniuAccessKey, conf.App.QiniuAccessSecret),
+		//No, we need to use qiniu's API.
+		NewQiniuTextCensor(conf.App.QiniuAccessKey, conf.App.QiniuAccessSecret),
 		NewAliyunTextCensor(conf.App.AliyunAccessKey, conf.App.AliyunAccessKeySecret),
 	} {
 		sourceName := censor.String()
