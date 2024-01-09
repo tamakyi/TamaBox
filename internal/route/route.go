@@ -21,16 +21,16 @@ import (
 	"github.com/flamego/template"
 	"github.com/sirupsen/logrus"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	templatepkg "github.com/NekoWheel/NekoBox/internal/template"
-	"github.com/NekoWheel/NekoBox/route"
-	"github.com/NekoWheel/NekoBox/route/auth"
-	"github.com/NekoWheel/NekoBox/route/question"
-	"github.com/NekoWheel/NekoBox/route/user"
-	"github.com/NekoWheel/NekoBox/static"
-	"github.com/NekoWheel/NekoBox/templates"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/form"
+	templatepkg "github.com/tamakyi/TamaBox/internal/template"
+	"github.com/tamakyi/TamaBox/route"
+	"github.com/tamakyi/TamaBox/route/auth"
+	"github.com/tamakyi/TamaBox/route/question"
+	"github.com/tamakyi/TamaBox/route/user"
+	"github.com/tamakyi/TamaBox/static"
+	"github.com/tamakyi/TamaBox/templates"
 )
 
 func New() *flamego.Flame {

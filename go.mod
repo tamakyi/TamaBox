@@ -1,4 +1,4 @@
-module github.com/NekoWheel/NekoBox
+module github.com/tamakyi/TamaBox
 
 go 1.19
 

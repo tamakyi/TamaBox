@@ -90,7 +90,7 @@ func (c *Context) SetError(err error, f ...interface{}) {
 	span := trace.SpanFromContext(c.Request().Context())
 	if span.IsRecording() {
 		span.SetAttributes(
-			attribute.String("nekobox.error", err.Error()),
+			attribute.String("tamabox.error", err.Error()),
 		)
 	}
 }
@@ -182,8 +182,8 @@ func Contexter() flamego.Handler {
 		span := trace.SpanFromContext(ctx.Request().Context())
 		if span.IsRecording() {
 			span.SetAttributes(
-				attribute.Bool("nekobox.user.is-login", c.IsLogged),
-				attribute.Int("nekobox.user.id", int(userID)),
+				attribute.Bool("tamabox.user.is-login", c.IsLogged),
+				attribute.Int("tamabox.user.id", int(userID)),
 			)
 		}
 		c.ResponseWriter().Header().Set("Trace-ID", span.SpanContext().TraceID().String())
@@ -205,7 +205,7 @@ func Contexter() flamego.Handler {
 			}
 		}
 
-		c.SetTitle("NekoBox")
+		c.SetTitle("狼的公告板")
 		c.Data["CSRFToken"] = x.Token()
 		c.Data["CSRFTokenHTML"] = templatepkg.Safe(`<input type="hidden" name="_csrf" value="` + x.Token() + `">`)
 

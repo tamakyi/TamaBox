@@ -31,7 +31,7 @@ func runWeb(ctx *cli.Context) error {
 	if conf.App.UptraceDSN != "" {
 		uptrace.ConfigureOpentelemetry(
 			uptrace.WithDSN(conf.App.UptraceDSN),
-			uptrace.WithServiceName("nekobox"),
+			uptrace.WithServiceName("tamabox"),
 			uptrace.WithServiceVersion(conf.BuildCommit),
 		)
 		logrus.WithContext(ctx.Context).Debug("Tracing enabled.")
@@ -51,7 +51,7 @@ func runWeb(ctx *cli.Context) error {
 
 	logrus.WithContext(ctx.Context).WithField("external_url", conf.App.ExternalURL).Info("Starting web server")
 	r := route.New()
-	r.Use(tracing.Middleware("NekoBox"))
+	r.Use(tracing.Middleware("TamaBox"))
 	r.Run(conf.Server.Port)
 
 	return nil

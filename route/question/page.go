@@ -68,7 +68,7 @@ func Pager(ctx context.Context) {
 		return
 	}
 
-	ctx.SetTitle(fmt.Sprintf("%s的提问箱 - NekoBox", pageUser.Name))
+	ctx.SetTitle(fmt.Sprintf("%s的提问箱 - 狼的提问箱", pageUser.Name))
 
 	ctx.Data["IsOwnPage"] = ctx.IsLogged && ctx.User.ID == pageUser.ID
 	ctx.Data["PageUser"] = pageUser

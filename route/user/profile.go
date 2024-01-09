@@ -167,7 +167,7 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 	}
 	// Set personal information sheet.
 	personalData := [][]interface{}{
-		{"NekoBox 账号信息导出", fmt.Sprintf("导出时间 %s", time.Now().Format("2006-01-02 15:04:05"))},
+		{"狼的提问箱 账号信息导出", fmt.Sprintf("导出时间 %s", time.Now().Format("2006-01-02 15:04:05"))},
 		{"电子邮箱", user.Email},
 		{"昵称", user.Name},
 		{"个性域名", user.Domain},

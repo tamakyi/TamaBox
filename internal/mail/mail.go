@@ -63,7 +63,7 @@ func sendTemplateMail(email, title string, templateFS embed.FS, templatePath str
 
 func sendMail(to, title, content string) error {
 	m := gomail.NewMessage()
-	m.SetHeader("From", fmt.Sprintf("NekoBox <%s>", conf.Mail.Account))
+	m.SetHeader("From", fmt.Sprintf("狼的提问箱 <%s>", conf.Mail.Account))
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", title)
 	m.SetBody("text/html", content)
