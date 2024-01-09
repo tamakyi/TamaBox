@@ -13,10 +13,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/xuri/excelize/v2"
 
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	"github.com/NekoWheel/NekoBox/internal/storage"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/storage"
 )
 
 func Profile(ctx context.Context) {
@@ -127,7 +127,7 @@ func ExportProfile(ctx context.Context) {
 		return
 	}
 
-	fileName := fmt.Sprintf("NekoBox账号信息导出-%s-%s.xlsx", user.Domain, time.Now().Format("20060102150405"))
+	fileName := fmt.Sprintf("狼的提问箱账号信息导出-%s-%s.xlsx", user.Domain, time.Now().Format("20060102150405"))
 	ctx.ResponseWriter().Header().Set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 	ctx.ResponseWriter().Header().Set("Content-Disposition", "attachment; filename*=UTF-8''"+url.QueryEscape(fileName))
 
@@ -222,6 +222,6 @@ func DeactivateProfileAction(ctx context.Context) {
 		return
 	}
 	ctx.Session.Flush()
-	ctx.SetSuccessFlash("您的账号已停用，感谢您使用 NekoBox。期待未来还能再见 👋🏻")
+	ctx.SetSuccessFlash("您的账号已停用，感谢您使用 狼的提问箱。期待未来还能再见 👋🏻")
 	ctx.Redirect("/login")
 }

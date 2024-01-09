@@ -14,7 +14,7 @@ import (
 	"github.com/thanhpk/randstr"
 	"github.com/wuhan005/gadget"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
 const (

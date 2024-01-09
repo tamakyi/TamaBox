@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/NekoWheel/NekoBox/internal/dbutil"
+	"github.com/tamakyi/TamaBox/internal/dbutil"
 )
 
 func TestQuestions(t *testing.T) {

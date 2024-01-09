@@ -11,7 +11,7 @@ import (
 	"github.com/wuhan005/gadget"
 	"gorm.io/gorm"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
 var Users UsersStore

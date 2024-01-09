@@ -11,10 +11,10 @@ import (
 	"github.com/uptrace/uptrace-go/uptrace"
 	"github.com/urfave/cli/v2"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/route"
-	"github.com/NekoWheel/NekoBox/internal/tracing"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/route"
+	"github.com/tamakyi/TamaBox/internal/tracing"
 )
 
 var Web = &cli.Command{

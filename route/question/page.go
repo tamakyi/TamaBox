@@ -21,13 +21,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/wuhan005/govalid"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/dbutil"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	"github.com/NekoWheel/NekoBox/internal/mail"
-	"github.com/NekoWheel/NekoBox/internal/security/censor"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/dbutil"
+	"github.com/tamakyi/TamaBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/mail"
+	"github.com/tamakyi/TamaBox/internal/security/censor"
 )
 
 func Pager(ctx context.Context) {

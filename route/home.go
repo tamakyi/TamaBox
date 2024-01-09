@@ -5,7 +5,7 @@
 package route
 
 import (
-	"github.com/NekoWheel/NekoBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/context"
 )
 
 func Home(ctx context.Context) {

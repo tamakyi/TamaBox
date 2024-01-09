@@ -1,14 +1,27 @@
 {{template "base/header" .}}
 <div class="uk-card uk-card-default uk-card-body">
-  <h1 class="uk-heading-small">NekoBox</h1>
+  <h1 class="uk-heading-small">狼的提问箱</h1>
   <p>一个究极简洁的匿名问答箱。没有多余的社交元素，只是一问一答。不提醒，不打扰。你不需要下载 App，不需要绑定社交账号，甚至连邮箱都不需要是真的。（划掉</p>
   <br>
   <hr>
   <div x-data="{ c: '' }" x-init="c = await (async () => {
-    let log = (await(await fetch('https://pb.app.apicon.cn/api/collections/changelogs/records?sort=-published_at&perPage=1')).json()).items[0];
-    return `<p class=uk-article-meta>开发日记 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
+    let log = (await(await fetch('https://api.tama.host/api/box-api/tamabox.changelogs.json')).json()).items[0];
+    return `<p class=uk-article-meta>修改记录 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
   })()" x-html="c">
   </div>
-  <p class="uk-text-right uk-text-small"><a class="uk-link-text" href="/change-logs">查看更多...</a></p>
 </div>
+<p>当前全站问题总数（0时更新）:<pre style="overflow: hidden;"id="text"></pre>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://api.tama.host/api/box-api/question.count.txt",
+        type: "get",
+        dataType: "text",
+        success: function (data) {
+            $("#text").text(data);
+        },
+        error: function (jqXHR, status, thrown) {
+            alert(thrown);
+        }
+    });
+</script>
 {{template "base/footer" .}}

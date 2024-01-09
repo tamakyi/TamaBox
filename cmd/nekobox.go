@@ -15,7 +15,7 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "NekoBox"
+	app.Name = "TamaBox"
 	app.Description = "Anonymous question box"
 
 	app.Commands = []*cli.Command{

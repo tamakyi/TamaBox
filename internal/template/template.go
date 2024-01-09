@@ -14,7 +14,7 @@ import (
 
 	"gorm.io/datatypes"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
 var (

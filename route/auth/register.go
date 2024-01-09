@@ -9,10 +9,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/form"
 )
 
 func Register(ctx context.Context) {
@@ -64,6 +64,6 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		return
 	}
 
-	ctx.SetSuccessFlash("注册成功，欢迎来到 NekoBox！")
+	ctx.SetSuccessFlash("注册成功，欢迎来到 狼的提问箱！")
 	ctx.Redirect("/login")
 }

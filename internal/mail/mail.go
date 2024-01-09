@@ -15,8 +15,8 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/gomail.v2"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/templates"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/templates"
 )
 
 func SendNewQuestionMail(email, domain string, questionID uint, questionContent string) error {
@@ -24,7 +24,7 @@ func SendNewQuestionMail(email, domain string, questionID uint, questionContent 
 		"link":     fmt.Sprintf("%s/_/%s/%d", conf.App.ExternalURL, domain, questionID),
 		"question": questionContent,
 	}
-	return sendTemplateMail(email, "【NekoBox】您有一个新的提问", templates.FS, "mail/new-question.html", params)
+	return sendTemplateMail(email, "【狼的提问箱】您有一个新的提问", templates.FS, "mail/new-question.html", params)
 }
 
 func SendNewAnswerMail(email, domain string, questionID uint, question, answer string) error {
@@ -33,7 +33,7 @@ func SendNewAnswerMail(email, domain string, questionID uint, question, answer s
 		"question": question,
 		"answer":   answer,
 	}
-	return sendTemplateMail(email, "【NekoBox】您的提问有了回复", templates.FS, "mail/new-answer.html", params)
+	return sendTemplateMail(email, "【狼的提问箱】您的提问有了回复", templates.FS, "mail/new-answer.html", params)
 }
 
 func SendPasswordRecoveryMail(email, code string) error {
@@ -41,7 +41,7 @@ func SendPasswordRecoveryMail(email, code string) error {
 		"link":  fmt.Sprintf("%s/recover-password?code=%s", conf.App.ExternalURL, code),
 		"email": email,
 	}
-	return sendTemplateMail(email, "【NekoBox】账号密码找回", templates.FS, "mail/password-recovery.html", params)
+	return sendTemplateMail(email, "【狼的提问箱】账号密码找回", templates.FS, "mail/password-recovery.html", params)
 }
 
 func sendTemplateMail(email, title string, templateFS embed.FS, templatePath string, params map[string]string) error {
