@@ -9,8 +9,9 @@
 
 
 ## 截图
-
-[!QRCode](./dev/qrimg.jpg)
+QRCode:
+[!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
+Commit with Pic
 [!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
