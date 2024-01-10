@@ -8,6 +8,10 @@
 匿名提问箱 / Anonymous Question Box
 
 
+## 截图
+
+[!QRCode](./dev/qrimg.jpg)
+[!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
 ### 需求
