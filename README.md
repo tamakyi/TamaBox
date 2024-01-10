@@ -7,6 +7,13 @@
 <p align="center">
 匿名提问箱 / Anonymous Question Box
 
+## 截图
+
+### QRcode
+![QRCode](./dev/qrcode.png#gh-light-mode-only)
+
+### Commit with picture
+![CWP](./dev/commitwithpic.png#gh-light-mode-only)
 
 ## 安装
 
