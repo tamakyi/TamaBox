@@ -15,6 +15,11 @@
 ### Commit with picture
 ![CWP](./dev/commitwithpic.png#gh-light-mode-only)
 
+## 截图
+QRCode:
+[!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
+Commit with Pic
+[!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
 ### 需求
