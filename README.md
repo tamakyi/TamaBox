@@ -10,7 +10,7 @@
 ## 截图
 
 ### QRcode
-![QRCode](./dev/qrcode.png#gh-light-mode-only)
+![QRCode](./dev/qrimg.png#gh-light-mode-only)
 
 ### Commit with picture
 ![CWP](./dev/commitwithpic.png#gh-light-mode-only)
