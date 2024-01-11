@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>{{ .Title }}</title>
-  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/uikit/3.3.3/css/uikit.min.css"/>
+  <link rel="stylesheet" href="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/expire-1-y/uikit/3.3.3/css/modify-black-font/uikit.min.css"/>
   <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/uikit/3.3.3/js/uikit.min.js"></script>
   <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/uikit/3.3.3/js/uikit-icons.min.js"></script>
   <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/dayjs/1.10.8/dayjs.min.js"></script>
@@ -15,7 +15,7 @@
   {{ else }}
   <script src="{{.RecaptchaDomain}}/recaptcha/api.js" async defer></script>
   <script>function onSubmit() {document.getElementById('form').submit();}</script>
-  <script type="text/javascript" src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/jquery-3.7.1.min.js"></script>
   {{ end }}
   {{ if ne SentryDSN "" }}
   <script
