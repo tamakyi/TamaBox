@@ -12,7 +12,18 @@
   <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/time.box.js"/></script>
   {{ if .RecaptchaTurnstileStyle }}
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha" async defer></script>
-  <script>function onSubmit() {}</script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.g-recaptcha').forEach(item => {
+              item.disabled = true;
+          });
+      });
+
+      function onSubmit() {
+          document.querySelectorAll('.g-recaptcha').forEach(item => {
+              item.disabled = false;
+          })
+      }</script>
   {{ else }}
   <script src="{{.RecaptchaDomain}}/recaptcha/api.js" async defer></script>
   <script>function onSubmit() {document.getElementById('form').submit();}</script>
