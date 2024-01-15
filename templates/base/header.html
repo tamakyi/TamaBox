@@ -9,6 +9,7 @@
   <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/uikit/3.3.3/js/uikit-icons.min.js"></script>
   <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/dayjs/1.10.8/dayjs.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js"/></script>
+  <script type="text/javascript" src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/jquery-3.7.1.min.js"></script>
   <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/time.box.js"/></script>
   {{ if .RecaptchaTurnstileStyle }}
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha" async defer></script>
@@ -27,7 +28,6 @@
   {{ else }}
   <script src="{{.RecaptchaDomain}}/recaptcha/api.js" async defer></script>
   <script>function onSubmit() {document.getElementById('form').submit();}</script>
-  <script type="text/javascript" src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/jquery-3.7.1.min.js"></script>
   {{ end }}
   {{ if ne SentryDSN "" }}
   <script
