@@ -9,7 +9,7 @@ type UpdateProfile struct {
 	OldPassword string `label:"旧密码"`
 	NewPassword string `valid:"maxlen:30" label:"新密码"`
 	Intro       string `valid:"required;maxlen:100" label:"介绍"`
-	QrcodeColor string `valid:"minlen:7;maxlen:7" label:"二维码前景色"`
+	Qrcodecolor string `valid:"minlen:7;maxlen:7" label:"二维码前景色"`
 	NotifyEmail string `label:"开启邮箱通知"`
 }
 
