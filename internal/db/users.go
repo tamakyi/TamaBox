@@ -48,9 +48,9 @@ type User struct {
 	Domain            string                `json:"domain"`
 	Background        string                `json:"background"`
 	Intro             string                `json:"intro"`
+	QrcodeColor       string                `json:"qrcodecolor"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
-	QrcodeColor       string                `json:"qrcodecolor"`
 }
 
 type NotifyType string
@@ -107,8 +107,8 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Domain:     opts.Domain,
 		Background: opts.Background,
 		Intro:      opts.Intro,
-		Notify:     NotifyTypeEmail,
 		QrcodeColor: opts.QrcodeColor,
+		Notify:     NotifyTypeEmail,
 	}
 	newUser.EncodePassword()
 
