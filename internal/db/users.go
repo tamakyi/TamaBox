@@ -50,6 +50,7 @@ type User struct {
 	Intro             string                `json:"intro"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
+	QrcodeColor       string                `json:"qrcodecolor"`
 }
 
 type NotifyType string
@@ -83,6 +84,7 @@ type CreateUserOptions struct {
 	Domain     string
 	Background string
 	Intro      string
+	QrcodeColor string
 }
 
 var (
@@ -106,6 +108,7 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Background: opts.Background,
 		Intro:      opts.Intro,
 		Notify:     NotifyTypeEmail,
+		QrcodeColor: opts.QrcodeColor,
 	}
 	newUser.EncodePassword()
 
@@ -143,6 +146,7 @@ type UpdateUserOptions struct {
 	Avatar     string
 	Background string
 	Intro      string
+	QrcodeColor string
 	Notify     NotifyType
 }
 
@@ -163,6 +167,7 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		Avatar:     opts.Avatar,
 		Background: opts.Background,
 		Intro:      opts.Intro,
+		QrcodeColor: opts.QrcodeColor,
 		Notify:     opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
