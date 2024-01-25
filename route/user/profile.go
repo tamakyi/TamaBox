@@ -86,6 +86,7 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		Avatar:     avatarURL,
 		Background: backgroundURL,
 		Intro:      f.Intro,
+		Qrcodebackcolor:      f.Qrcodebackcolor,
 		Qrcodecolor:      f.Qrcodecolor,
 		Notify:     notify,
 	}); err != nil {
@@ -173,6 +174,7 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 		{"昵称", user.Name},
 		{"个性域名", user.Domain},
 		{"介绍", user.Intro},
+		{"二维码背景色", user.Qrcodebackcolor},
 		{"二维码前景色", user.Qrcodecolor},
 		{"头像 URL", user.Avatar},
 		{"背景图 URL", user.Background},
