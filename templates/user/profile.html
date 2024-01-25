@@ -24,12 +24,16 @@
     <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景色</label>
+    <label class="uk-form-label" for="form-stacked-text">二维码背景色（十六进制颜色 例：#000000）</label>
     <input name="qrcodebackcolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodebackcolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码前景色</label>
+    <label class="uk-form-label" for="form-stacked-text">二维码前景色（十六进制颜色 例：#000000）</label>
     <input name="qrcodecolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodecolor}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码头像尺寸（大于10小于100的整数数值）</label>
+    <input name="qravatarsize" class="uk-input" type="text" value="{{.LoggedUser.Qravatarsize}}">
   </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新提问通知</label>

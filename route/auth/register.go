@@ -49,6 +49,7 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		Intro:      "问你想问的",
 		Qrcodebackcolor: "#FFFFFF",
 		Qrcodecolor: "#000000",
+		Qravatarsize: "60"
 	}); err != nil {
 		switch {
 		case errors.Is(err, db.ErrUserNotExists),

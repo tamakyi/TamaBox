@@ -46,8 +46,8 @@
             background: "{{.PageUser.Qrcodebackcolor}}",          // 背景颜色
             foreground: "{{.PageUser.Qrcodecolor}}",          // 前景颜色
             src: "{{.PageUser.Avatar}}",                // logo地址, 图片居中, 图片为二维码的 1/9 为最佳，可适当调整，但是太大会影响二维码的内容
-            imgWidth: 60,                  // logo宽度
-            imgHeight: 60                  // logo高度
+            imgWidth: "{{.PageUser.Qravatarsize}}",                  // logo宽度
+            imgHeight: "{{.PageUser.Qravatarsize}}"                  // logo高度
         });
     </script>
     <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
