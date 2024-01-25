@@ -16,7 +16,7 @@ func Sponsor(ctx context.Context) {
 	ctx.Success("sponsor")
 }
 
-func Sponsor(ctx context.Context) {
+func AboutMe(ctx context.Context) {
 	ctx.Success("about-me")
 }
 
