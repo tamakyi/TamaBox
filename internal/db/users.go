@@ -50,7 +50,6 @@ type User struct {
 	Intro             string                `json:"intro"`
 	Qrcodebackcolor   string                `json:"qrcodebackcolor"`
 	Qrcodecolor       string                `json:"qrcodecolor"`
-	Qravatarsize      string                `json:"qravatarsize"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
 }
@@ -88,7 +87,6 @@ type CreateUserOptions struct {
 	Intro      string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	Qravatarsize   string
 }
 
 var (
@@ -113,7 +111,6 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Intro:      opts.Intro,
 		Qrcodebackcolor: opts.Qrcodebackcolor,
 		Qrcodecolor: opts.Qrcodecolor,
-		Qravatarsize: opts.Qravatarsize,
 		Notify:     NotifyTypeEmail,
 	}
 	newUser.EncodePassword()
@@ -154,7 +151,6 @@ type UpdateUserOptions struct {
 	Intro      string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	Qravatarsize  string
 	Notify     NotifyType
 }
 
@@ -177,7 +173,6 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		Intro:      opts.Intro,
 		Qrcodebackcolor: opts.Qrcodebackcolor,
 		Qrcodecolor: opts.Qrcodecolor,
-		Qravatarsize: opts.Qravatarsize,
 		Notify:     opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")

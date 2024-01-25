@@ -88,7 +88,6 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		Intro:      f.Intro,
 		Qrcodebackcolor:      f.Qrcodebackcolor,
 		Qrcodecolor:      f.Qrcodecolor,
-		Qravatarsize:     f.Qravatarsize,
 		Notify:     notify,
 	}); err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to update user profile")
@@ -177,7 +176,6 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 		{"介绍", user.Intro},
 		{"二维码背景色", user.Qrcodebackcolor},
 		{"二维码前景色", user.Qrcodecolor},
-		{"二维码头像大小", user.Qravatarsize},
 		{"头像 URL", user.Avatar},
 		{"背景图 URL", user.Background},
 		{"注册时间", user.CreatedAt},
