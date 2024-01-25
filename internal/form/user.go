@@ -11,7 +11,7 @@ type UpdateProfile struct {
 	Intro       string `valid:"required;maxlen:100" label:"介绍"`
 	Qrcodebackcolor string `valid:"required;minlen:7;maxlen:7" label:"二维码背景色"`
 	Qrcodecolor string `valid:"required;minlen:7;maxlen:7" label:"二维码前景色"`
-	Qravatarsize int `valid:"required;min:10;max:100" label:"二维码头像大小"`
+	Qravatarsize string `valid:"required;min:10;max:100" label:"二维码头像大小"`
 	NotifyEmail string `label:"开启邮箱通知"`
 }
 

@@ -50,7 +50,7 @@ type User struct {
 	Intro             string                `json:"intro"`
 	Qrcodebackcolor   string                `json:"qrcodebackcolor"`
 	Qrcodecolor       string                `json:"qrcodecolor"`
-	Qravatarsize      int                `json:"qravatarsize"`
+	Qravatarsize      string                `json:"qravatarsize"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
 }
@@ -88,7 +88,7 @@ type CreateUserOptions struct {
 	Intro      string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	Qravatarsize   int
+	Qravatarsize   string
 }
 
 var (
@@ -154,7 +154,7 @@ type UpdateUserOptions struct {
 	Intro      string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	Qravatarsize  int
+	Qravatarsize  string
 	Notify     NotifyType
 }
 
