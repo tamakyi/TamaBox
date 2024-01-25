@@ -85,6 +85,7 @@ func New() *flamego.Flame {
 		f.Get("/", route.Home)
 		f.Get("/sponsor", route.Sponsor)
 		f.Get("/change-logs", route.ChangeLogs)
+		f.Get("/about-me", route.AboutMe)
 		f.Get("/robots.txt", func(c context.Context) {
 			_, _ = c.ResponseWriter().Write([]byte("User-agent: *\nDisallow: /_/"))
 		})

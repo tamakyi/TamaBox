@@ -48,7 +48,7 @@ type User struct {
 	Domain            string                `json:"domain"`
 	Background        string                `json:"background"`
 	Intro             string                `json:"intro"`
-	Qrcodecolor       string                `json:"Qrcodecolor"`
+	Qrcodecolor       string                `json:"qrcodecolor"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
 }
