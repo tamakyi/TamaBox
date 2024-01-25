@@ -88,7 +88,7 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		Intro:      f.Intro,
 		Qrcodebackcolor:      f.Qrcodebackcolor,
 		Qrcodecolor:      f.Qrcodecolor,
-		Qravatarsize:     f.Qravatarsize
+		Qravatarsize:     f.Qravatarsize,
 		Notify:     notify,
 	}); err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to update user profile")
