@@ -27,7 +27,7 @@ import (
 	templatepkg "github.com/tamakyi/TamaBox/internal/template"
 	"github.com/tamakyi/TamaBox/route"
 	"github.com/tamakyi/TamaBox/route/auth"
-	"github.com/tamakyi/NekoBox/route/pixel"
+	"github.com/tamakyi/TamaBox/route/pixel"
 	"github.com/tamakyi/TamaBox/route/question"
 	"github.com/tamakyi/TamaBox/route/user"
 	"github.com/tamakyi/TamaBox/static"
