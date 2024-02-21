@@ -12,8 +12,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/tamakyi/NekoBox/internal/conf"
-	"github.com/tamakyi/NekoBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
 )
 
 func Index(ctx context.Context) {
