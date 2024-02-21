@@ -27,6 +27,7 @@ import (
 	templatepkg "github.com/tamakyi/TamaBox/internal/template"
 	"github.com/tamakyi/TamaBox/route"
 	"github.com/tamakyi/TamaBox/route/auth"
+	"github.com/tamakyi/NekoBox/route/pixel"
 	"github.com/tamakyi/TamaBox/route/question"
 	"github.com/tamakyi/TamaBox/route/user"
 	"github.com/tamakyi/TamaBox/static"
@@ -83,6 +84,7 @@ func New() *flamego.Flame {
 
 	f.Group("", func() {
 		f.Get("/", route.Home)
+		f.Get("/pixel", reqUserSignIn, pixel.Index)
 		f.Get("/sponsor", route.Sponsor)
 		f.Get("/change-logs", route.ChangeLogs)
 		f.Get("/about-me", route.AboutMe)
@@ -138,6 +140,8 @@ func New() *flamego.Flame {
 					})
 				})
 			})
+			
+			f.Any("/pixel/{**}", reqUserSignIn, pixel.Proxy
 		}, context.APIEndpoint)
 	},
 		cache.Cacher(cache.Options{
