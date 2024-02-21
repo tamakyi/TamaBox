@@ -140,8 +140,8 @@ func New() *flamego.Flame {
 					})
 				})
 			})
-			
-			f.Any("/pixel/{**}", reqUserSignIn, pixel.Proxy
+
+			f.Any("/pixel/{**}", reqUserSignIn, pixel.Proxy)
 		}, context.APIEndpoint)
 	},
 		cache.Cacher(cache.Options{
