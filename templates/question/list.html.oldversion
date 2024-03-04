@@ -23,39 +23,33 @@
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
     {{ if .CanAsk }}
     <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/jquery.min.js"></script>
-    <script src='https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/easy.qrcode.min.js' type="text/javascript"  charset="utf-8"></script>
-    <center><div id="boxqrimg"></div></center>
+    <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/jquery.qrcode.js"></script>
+    <style type="text/css">
+      #qrlogo {
+          width: 200px;
+          padding: 0;
+          margin: 20px auto 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    </style>
+    <body> 
+        <div id="qrlogo"></div>
+    </body>
     <script type="text/javascript">
-        // Options
-        var options = {
-            text: window.location.href,
-            width: 200,
-            height: 200,
-            colorDark: "{{.PageUser.Qrcodebackcolor}}",
-            colorLight: "{{.PageUser.Qrcodecolor}}",
-            dotScale: "{{.PageUser.Dotscale}}",
-            dotScaleTiming: "{{.PageUser.Dotscale}}",
-            dotScaleA: "{{.PageUser.Dotscale}}",
-            correctLevel: QRCode.CorrectLevel.H,
-            crossOrigin: 'anonymous',
-            logo: {{.PageUser.Avatar}},
-            logoWidth: 60,
-            logoHeight: 60,
-            logoBackgroundTransparent: true,
-            backgroundImage: {{.PageUser.BackgroundImage}},
-            backgroundImageAlpha: {{.PageUser.Backgroundimagealpha}},
-            autoColor: true,
-            PO: "{{.PageUser.Qrcodebackcolor}}",
-            PI: "{{.PageUser.Qrcodebackcolor}}",
-            AO: '',
-            AI: '',
-            timing: "{{.PageUser.Qrcodebackcolor}}"
-        };
-        
-        // Create QRCode Object
-        new QRCode(document.getElementById("boxqrimg"), options);
+        $('#qrlogo').qrcode({
+            text: window.location.href,      // 二维码的内容
+            render: "canvas",               // 设置渲染方式
+            width: 200,                     // 设置宽度: 默认256
+            height: 200,                    // 设置高度: 默认256
+            background: "{{.PageUser.Qrcodebackcolor}}",          // 背景颜色
+            foreground: "{{.PageUser.Qrcodecolor}}",          // 前景颜色
+            src: "{{.PageUser.Avatar}}",                // logo地址, 图片居中, 图片为二维码的 1/9 为最佳，可适当调整，但是太大会影响二维码的内容
+            imgWidth: 60,                  // logo宽度
+            imgHeight: 60                  // logo高度
+        });
     </script>
-
     <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
     {{ end }}
     {{template "base/alert" .}}

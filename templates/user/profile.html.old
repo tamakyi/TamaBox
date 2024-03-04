@@ -32,14 +32,6 @@
     <input name="qrcodecolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodecolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码点大小(数值范围在0-1区间，默认0.5)</label>
-    <input name="dotscale" class="uk-input" type="text" value="{{.LoggedUser.Dotscale}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(数值范围在0-1区间，默认0.5)</label>
-    <input name="backgroundimagealpha" class="uk-input" type="text" value="{{.LoggedUser.Backgroundimagealpha}}">
-  </div>
-  <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新提问通知</label>
     <label>
       <input name="notify_email" class="uk-checkbox" type="checkbox"
@@ -59,13 +51,6 @@
     <div uk-form-custom="target: true">
       <input type="file" name="background">
       <input class="uk-input uk-form-width-large" type="text" placeholder="上传提问箱背景" disabled>
-    </div>
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景图</label>
-    <div uk-form-custom="target: true">
-      <input type="file" name="backgroundimage">
-      <input class="uk-input uk-form-width-large" type="text" placeholder="上传二维码背景" disabled>
     </div>
   </div>
   <div class="uk-margin">

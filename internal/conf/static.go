@@ -62,6 +62,7 @@ var (
 	Upload struct {
 		DefaultAvatarURL    string `ini:"default_avatar"`
 		DefaultBackground   string `ini:"default_background"`
+		DefaultBackgroundImageURL    string `ini:"default_qrbackgroundimage"`
 		AliyunEndpoint      string `ini:"aliyun_endpoint"`
 		AliyunAccessID      string `ini:"aliyun_access_id"`
 		AliyunAccessSecret  string `ini:"aliyun_access_secret"`

@@ -50,9 +50,6 @@ type User struct {
 	Intro             string                `json:"intro"`
 	Qrcodebackcolor   string                `json:"qrcodebackcolor"`
 	Qrcodecolor       string                `json:"qrcodecolor"`
-	BackgroundImage   string                `json:"backgroundimage"`
-	Dotscale          string                `json:"dotscale"`
-	Backgroundimagealpha   string                `json:"Backgroundimagealpha"`
 	Notify            NotifyType            `json:"notify"`
 	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
 }
@@ -88,11 +85,8 @@ type CreateUserOptions struct {
 	Domain     string
 	Background string
 	Intro      string
-	Dotscale   string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	BackgroundImage   string
-	Backgroundimagealpha   string
 }
 
 var (
@@ -117,9 +111,6 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Intro:      opts.Intro,
 		Qrcodebackcolor: opts.Qrcodebackcolor,
 		Qrcodecolor: opts.Qrcodecolor,
-		Dotscale:    opts.Dotscale,
-		BackgroundImage:  opts.BackgroundImage,
-		Backgroundimagealpha:  opts.Backgroundimagealpha,
 		Notify:     NotifyTypeEmail,
 	}
 	newUser.EncodePassword()
@@ -160,9 +151,6 @@ type UpdateUserOptions struct {
 	Intro      string
 	Qrcodebackcolor string
 	Qrcodecolor string
-	Dotscale    string
-	BackgroundImage   string
-	Backgroundimagealpha   string
 	Notify     NotifyType
 }
 
@@ -185,9 +173,6 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		Intro:      opts.Intro,
 		Qrcodebackcolor: opts.Qrcodebackcolor,
 		Qrcodecolor: opts.Qrcodecolor,
-		Dotscale: opts.Dotscale,
-		BackgroundImage:   opts.BackgroundImage,
-		Backgroundimagealpha:  opts.Backgroundimagealpha,
 		Notify:     opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
