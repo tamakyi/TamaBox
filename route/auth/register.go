@@ -47,12 +47,12 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		Domain:               f.Domain,
 		Background:           conf.Upload.DefaultBackground,
 		Intro:                "问你想问的",
-		Qrcodebackcolor:      "#FFFFFF",
-		Qrcodecolor:          "#000000",
+		Qrcodebackcolor:      "#000000",
+		Qrcodecolor:          "#696969",
 		Dotscale:             "0.5",
 		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
 		Backgroundimagealpha: "0.5",
-		Qrcodepdpcolor:       "#FFFFFF",
+		Qrcodepdpcolor:       "#696969",
 	}); err != nil {
 		switch {
 		case errors.Is(err, db.ErrUserNotExists),
