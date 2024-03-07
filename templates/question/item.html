@@ -25,7 +25,6 @@
 
     {{if ne .Question.Answer ""}}
     <div class="uk-card-body">
-      <div class="uk-text-left uk-text-small uk-text-muted">{{Date .Question.UpdatedAt "Y-m-d H:i:s"}}</div>
       <p class="uk-text-small uk-text-break">{{AnswerFormat .Question.Answer}}</p>
       {{ if .AnswerUploadImages }}
       <ul class="uk-thumbnav" uk-margin>
