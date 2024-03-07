@@ -47,7 +47,7 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		Domain:               f.Domain,
 		Background:           conf.Upload.DefaultBackground,
 		Intro:                "问你想问的",
-		Qrcodebackcolor:      "#000000",
+		Qrcodebackcolor:      "#FFFFFF",
 		Qrcodecolor:          "#696969",
 		Dotscale:             "0.5",
 		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
