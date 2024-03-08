@@ -25,4 +25,97 @@
         }
     });
 </script>
-{{template "base/footer" .}}
+<script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/v2/waline.js"></script>
+<link href='https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/v2/waline.css' rel='stylesheet' />
+ <div id="waline"></div>
+ <script>
+     const waline = Waline.init({
+         el: '#waline',
+         //后端服务器地址
+         serverURL: 'https://artalk.tama.guru',
+         <!--path: window.location.pathname.replace(/\/$/,''),-->
+             // 中文默认
+         locale: {
+           nick: '昵称',
+           nickError: '昵称不能少于3个字符',
+           mail: '邮箱',
+           mailError: '请填写正确的邮件地址',
+           link: '网址',
+           optional: '可选',
+           placeholder: '欢迎评论（需要手工审核，不会立即展现）',
+           sofa: '来发评论吧~',
+           submit: '提交',
+           like: '喜欢',
+           cancelLike: '取消喜欢',
+           reply: '回复',
+           cancelReply: '取消回复',
+           comment: '评论',
+           refresh: '刷新',
+           more: '加载更多...',
+           preview: '预览',
+           emoji: '表情',
+           uploadImage: '上传图片',
+           seconds: '秒前',
+           minutes: '分钟前',
+           hours: '小时前',
+           days: '天前',
+           now: '刚刚',
+           uploading: '正在上传',
+           login: '登录',
+           logout: '退出',
+           admin: '博主',
+           sticky: '置顶',
+           word: '字',
+           wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+           anonymous: '无名小狼',
+           level0: '潜水',
+           level1: '冒泡',
+           level2: '吐槽',
+           level3: '活跃',
+           level4: '话痨',
+           level5: '传说',
+           gif: '表情包',
+           gifSearchPlaceholder: '搜索表情包',
+           profile: '个人资料',
+           approved: '通过',
+           waiting: '待审核',
+           spam: '垃圾',
+           unsticky: '取消置顶',
+           oldest: '按倒序',
+           latest: '按正序',
+           hottest: '按热度',
+           reactionTitle: '你对本站有什么看法？',
+           reaction0: '赞',
+           reaction1: '啥玩意',
+           reaction2: '不行',
+           reaction3: '流汗',
+           reaction4: '生气',
+           reaction5: '流鼻血',
+         },
+         reaction: [
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_damuzhi.png',
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_yihuo.png',
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_buxing.png',
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_liuhan.png',
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_shengqi.png',
+          'https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/cdn/waline/client/images/acfun_bixue.png',
+         ],
+         meta: ['nick','mail'],
+         requiredMeta: ['mail'],
+         pageview: true,
+         search: false,
+         comment: false,
+         login: 'disable',
+         wordLimit: 50,
+         pageSize: 5,
+         avatar: 'monsterid',
+         emoji: [
+             'https://gcore.jsdelivr.net/gh/tamakyi/emoji-collection@main/acfun-classic/60x60',
+         ],
+         //禁止图片上传按钮
+         imageUploader: false,
+         //不显示版权标志
+         copyright: false,
+     });
+ </script>
+ {{template "base/footer" .}}
