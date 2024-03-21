@@ -24,7 +24,7 @@
     <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景色</label>
+    <label class="uk-form-label" for="form-stacked-text">二维码背景色（使用二维码背景时不生效）</label>
     <input name="qrcodebackcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodebackcolor}}">
   </div>
   <div class="uk-margin">
@@ -40,7 +40,7 @@
     <input name="dotscale" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Dotscale}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←小 大→)</label>
+    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←不透明 很透明→)</label>
     <input name="backgroundimagealpha" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Backgroundimagealpha}}">
   </div>
   <div class="uk-margin">

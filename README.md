@@ -1,4 +1,8 @@
-<h1 align="center">狼的提问箱</h1>
+<h1 align="center">
+<img src="https://nekobox-public.oss-cn-hangzhou.aliyuncs.com/images/Neko.png" width=100px/>
+
+狼的提问箱
+</h1>
 
 <p align="center">
 匿名提问箱 / Anonymous Question Box
@@ -15,6 +19,11 @@
 ### 发表态度
 ![CWP](./dev/commitwithpic.png#gh-light-mode-only)
 
+## 截图
+QRCode:
+[!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
+Commit with Pic
+[!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
 ### 需求
@@ -26,7 +35,7 @@
 ### 从源码编译
 
 ```bash
-git clone https://github.com/tamakyi/TamaBox.git
+git clone -b dev-qrcode  https://github.com/tamakyi/TamaBox.git
 
 cd TamaBox
 
