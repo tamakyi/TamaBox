@@ -24,24 +24,24 @@
     <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景色(十六进制颜色 例：#000000)</label>
-    <input name="qrcodebackcolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodebackcolor}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景色</label>
+    <input name="qrcodebackcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodebackcolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码前景色(十六进制颜色 例：#000000)</label>
-    <input name="qrcodecolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodecolor}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码前景色</label>
+    <input name="qrcodecolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodecolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码探测图形颜色(十六进制颜色 例：#000000)</label>
-    <input name="qrcodepdpcolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodepdpcolor}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码探测图形颜色</label>
+    <input name="qrcodepdpcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodepdpcolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码点大小(数值范围在0-1区间，默认0.5)</label>
-    <input name="dotscale" class="uk-input" type="text" value="{{.LoggedUser.Dotscale}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码点大小(←小 大→)</label>
+    <input name="dotscale" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Dotscale}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(数值范围在0-1区间，默认0.5)</label>
-    <input name="backgroundimagealpha" class="uk-input" type="text" value="{{.LoggedUser.Backgroundimagealpha}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←小 大→)</label>
+    <input name="backgroundimagealpha" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Backgroundimagealpha}}">
   </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新提问通知</label>
