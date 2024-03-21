@@ -1,11 +1,6 @@
-<h1 align="center">
-<img src="https://nekobox-public.oss-cn-hangzhou.aliyuncs.com/images/Neko.png" width=100px/>
+<h1 align="center">狼的提问箱</h1>
 
-狼的提问箱
-</h1>
-
-<p align="center">
-匿名提问箱 / Anonymous Question Box
+<p align="center">匿名提问箱 / Anonymous Question Box
 
 ## 说明
 * 基于原版[Nekobox](https://github.com/NekoWheel/NekoBox)修改，基本与原版无异，请支持原作者。
