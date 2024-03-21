@@ -9,7 +9,7 @@ ARG GITHUB_SHA=dev
 COPY . .
 
 RUN go mod tidy
-RUN go build -v -ldflags "-w -s -extldflags '-static' -X 'github.com/NekoWheel/NekoBox/internal/conf.BuildCommit=$GITHUB_SHA'" -o NekoBox ./cmd/
+RUN go build -v -ldflags "-w -s -extldflags '-static' -X 'github.com/tamakyi/TamaBox/internal/conf.BuildCommit=$GITHUB_SHA'" -o TamaBox ./cmd/
 
 FROM alpine:latest
 
@@ -18,9 +18,9 @@ RUN apk update && apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/lo
 
 WORKDIR /home/app
 
-COPY --from=builder /app/NekoBox .
+COPY --from=builder /app/TamaBox .
 
-RUN chmod 777 /home/app/NekoBox
+RUN chmod 777 /home/app/TamaBox
 
-ENTRYPOINT ["./NekoBox", "web"]
+ENTRYPOINT ["./TamaBox", "web"]
 EXPOSE 8080
