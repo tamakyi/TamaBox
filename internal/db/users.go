@@ -48,6 +48,8 @@ type User struct {
 	Domain               string                `json:"domain"`
 	Background           string                `json:"background"`
 	Intro                string                `json:"intro"`
+        Introcolor           string                `json:"introcolor"`
+        Usernamecolor        string                `json:"usernamecolor"`
 	Qrcodebackcolor      string                `json:"qrcodebackcolor"`
 	Qrcodecolor          string                `json:"qrcodecolor"`
 	BackgroundImage      string                `json:"backgroundimage"`
@@ -90,11 +92,13 @@ type CreateUserOptions struct {
 	Background           string
 	Intro                string
 	Dotscale             string
-	Qrcodebackcolor      string
 	Qrcodecolor          string
 	Qrcodepdpcolor       string
 	BackgroundImage      string
 	Backgroundimagealpha string
+        Usernamecolor        string
+        Introcolor           string
+        Qrcodebackcolor      string
 }
 
 var (
@@ -124,6 +128,8 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
 		Notify:               NotifyTypeEmail,
+                Usernamecolor:        opts.Usernamecolor,
+                Introcolor:           opts.Introcolor,
 	}
 	newUser.EncodePassword()
 
@@ -167,6 +173,8 @@ type UpdateUserOptions struct {
 	BackgroundImage      string
 	Backgroundimagealpha string
 	Qrcodepdpcolor       string
+        Usernamecolor        string
+        Introcolor           string
 	Notify               NotifyType
 }
 
@@ -194,6 +202,8 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
 		Notify:               opts.Notify,
+                Usernamecolor:        opts.Usernamecolor,
+                Introcolor:           opts.Introcolor,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
 	}

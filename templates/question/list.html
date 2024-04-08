@@ -13,12 +13,15 @@
       <img class="uk-border-circle uk-box-shadow-large"
            src="{{ .PageUser.Avatar }}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200/format,png"
            width="100" height="100">
-      <h3>{{ .PageUser.Name }}</h3>
-      <p>{{ .PageUser.Intro }}</p>
+      <h3 id="usernamecolor">{{ .PageUser.Name }}</h3>
+      <p id="introcolor">{{ .PageUser.Intro }}</p>
     </div>
   </div>
 </div>
-
+<script>
+document.getElementById("usernamecolor").style.color = {{.PageUser.Usernamecolor}};
+document.getElementById("introcolor").style.color = {{.PageUser.Introcolor}};
+</script>
 <div>
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
     {{ if .CanAsk }}

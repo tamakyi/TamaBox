@@ -53,6 +53,8 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
 		Backgroundimagealpha: "0.5",
 		Qrcodepdpcolor:       "#696969",
+                Usernamecolor:        "#000000",
+                Introcolor:           "#000000",
 	}); err != nil {
 		switch {
 		case errors.Is(err, db.ErrUserNotExists),
