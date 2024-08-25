@@ -1,0 +1,71 @@
+{{template "base/header" .}}
+<link rel="shortcut icon"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+<link rel="apple-touch-icon"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+<link rel="icon" sizes="192x192"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200">
+<div class="uk-card uk-card-default uk-text-center">
+  <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+       data-src="{{ .PageUser.Background }}?x-oss-process=image/format,png"
+       uk-img>
+    <div class="uk-card-body">
+      <img class="uk-border-circle uk-box-shadow-large"
+           src="{{ .PageUser.Avatar }}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200/format,png"
+           width="100" height="100">
+      <h3>{{ .PageUser.Name }}</h3>
+      <p>{{ .PageUser.Intro }}</p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="uk-card uk-card-default uk-card-small uk-card-body">
+    {{ if .CanAsk }}
+    <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/jquery.min.js"></script>
+    <script src='https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/easy.qrcode.min.js' type="text/javascript"  charset="utf-8"></script>
+    <center><div id="boxqrimg"></div></center>
+    <script type="text/javascript">
+        // Options
+        var options = {
+            text: "https://github.com/ushelp/EasyQRCodeJS",
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#FFFFFF",
+            dotScale: 0.5,
+            dotScaleTiming: 0.5,
+            dotScaleA: 0.5,
+            correctLevel: QRCode.CorrectLevel.H,
+            crossOrigin: 'anonymous',
+            logo: {{.PageUser.Avatar}},
+            logoWidth: 65,
+            logoHeight: 65,
+            logoBackgroundTransparent: true,
+            backgroundImage: {{.PageUser.Avatar}},
+            backgroundImageAlpha: 0.5,
+            autoColor: true,
+            PO: '#e1622f',
+            PI: '#aa5b71',
+            AO: '',
+            AI: '',
+            timing: '#e1622f'
+        };
+        
+        // Create QRCode Object
+        new QRCode(document.getElementById("boxqrimg"), options);
+    </script>
+
+    <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
+    {{ end }}
+    {{template "base/alert" .}}
+    {{template "question/new-question-template" .}}
+
+    <hr class="uk-divider-icon">
+    {{ if ne (len .PageQuestions) 0 }}
+    <p class="uk-text-left uk-text-muted uk-text-small">@{{ .PageUser.Name }} 以前回答过的问题 ({{ .AnsweredCount }})</p>
+    {{ template "question/history-template" . }}
+    {{ end }}
+  </div>
+</div>
+{{template "base/footer" .}}

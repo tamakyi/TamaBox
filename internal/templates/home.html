@@ -1,0 +1,29 @@
+{{template "base/header" .}}
+<div class="uk-card uk-card-default uk-card-body">
+  <h1 class="uk-heading-small">狼的提问箱</h1>
+  <p>一个究极简洁的匿名问答箱。没有多余的社交元素，只是一问一答。不提醒，不打扰。你不需要下载 App，不需要绑定社交账号，甚至连邮箱都不需要是真的。</p>
+  <p>可以到<a href="//box.tama.guru/_/tamakyi">小狼的提问箱</a>尝试相关功能或给我提意见。</p>
+  <p>可以加群：<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=rRy9g5XY34LIzOITGGmQHjX6BIICFpam&authKey=EjyNjp60KyG8BtKZGN8BXJaf1jl8okkCcUhVF2zAnGPRjhvuSdopnVqOSfSymnGg&noverify=0&group_code=777163254">小狼的群（群名太怪不写出来了）</a>一起水群。</p>
+  <br>
+  <hr>
+  <div x-data="{ c: '' }" x-init="c = await (async () => {
+    let log = (await(await fetch('https://api.tama.host/api/box-api/tamabox.changelogs.json')).json()).items[0];
+    return `<p class=uk-article-meta>修改记录 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
+  })()" x-html="c">
+  </div>
+</div>
+<p>提问箱信息统计:<pre style="overflow: hidden;"id="text"></pre>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://api.tama.host/api/box-api/question.count.txt",
+        type: "get",
+        dataType: "text",
+        success: function (data) {
+            $("#text").text(data);
+        },
+        error: function (jqXHR, status, thrown) {
+            alert(thrown);
+        }
+    });
+</script>
+{{template "base/footer" .}}
