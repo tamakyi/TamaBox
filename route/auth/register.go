@@ -40,15 +40,21 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 	}
 
 	if err := db.Users.Create(ctx.Request().Context(), db.CreateUserOptions{
-		Name:       f.Name,
-		Password:   f.Password,
-		Email:      f.Email,
-		Avatar:     conf.Upload.DefaultAvatarURL,
-		Domain:     f.Domain,
-		Background: conf.Upload.DefaultBackground,
-		Intro:      "问你想问的",
-		Qrcodebackcolor: "#FFFFFF",
-		Qrcodecolor: "#000000",
+		Name:                 f.Name,
+		Password:             f.Password,
+		Email:                f.Email,
+		Avatar:               conf.Upload.DefaultAvatarURL,
+		Domain:               f.Domain,
+		Background:           conf.Upload.DefaultBackground,
+		Intro:                "问你想问的",
+		Qrcodebackcolor:      "#FFFFFF",
+		Qrcodecolor:          "#696969",
+                Usernamecolor:        "#000000",
+                Introcolor:           "#000000",
+		Dotscale:             "0.5",
+		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
+		Backgroundimagealpha: "0.5",
+		Qrcodepdpcolor:       "#696969",
 	}); err != nil {
 		switch {
 		case errors.Is(err, db.ErrUserNotExists),

@@ -1,0 +1,65 @@
+{{template "base/header" .}}
+<link rel="shortcut icon"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+<link rel="apple-touch-icon"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+<link rel="icon" sizes="192x192"
+      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200">
+<div class="uk-card uk-card-default uk-text-center">
+  <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+       data-src="{{ .PageUser.Background }}?x-oss-process=image/format,png"
+       uk-img>
+    <div class="uk-card-body">
+      <img class="uk-border-circle uk-box-shadow-large"
+           src="{{ .PageUser.Avatar }}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200/format,png"
+           width="100" height="100">
+      <h3>{{ .PageUser.Name }}</h3>
+      <p>{{ .PageUser.Intro }}</p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="uk-card uk-card-default uk-card-small uk-card-body">
+    {{ if .CanAsk }}
+    <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/jquery.min.js"></script>
+    <script src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/js/remake/jquery.qrcode.js"></script>
+    <style type="text/css">
+      #qrlogo {
+          width: 200px;
+          padding: 0;
+          margin: 20px auto 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    </style>
+    <body> 
+        <div id="qrlogo"></div>
+    </body>
+    <script type="text/javascript">
+        $('#qrlogo').qrcode({
+            text: window.location.href,      // 二维码的内容
+            render: "canvas",               // 设置渲染方式
+            width: 200,                     // 设置宽度: 默认256
+            height: 200,                    // 设置高度: 默认256
+            background: "{{.PageUser.Qrcodebackcolor}}",          // 背景颜色
+            foreground: "{{.PageUser.Qrcodecolor}}",          // 前景颜色
+            src: "{{.PageUser.Avatar}}",                // logo地址, 图片居中, 图片为二维码的 1/9 为最佳，可适当调整，但是太大会影响二维码的内容
+            imgWidth: 60,                  // logo宽度
+            imgHeight: 60                  // logo高度
+        });
+    </script>
+    <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
+    {{ end }}
+    {{template "base/alert" .}}
+    {{template "question/new-question-template" .}}
+
+    <hr class="uk-divider-icon">
+    {{ if ne (len .PageQuestions) 0 }}
+    <p class="uk-text-left uk-text-muted uk-text-small">@{{ .PageUser.Name }} 以前回答过的问题 ({{ .AnsweredCount }})</p>
+    {{ template "question/history-template" . }}
+    {{ end }}
+  </div>
+</div>
+{{template "base/footer" .}}

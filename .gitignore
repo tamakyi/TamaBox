@@ -21,3 +21,6 @@ app.ini
 .vscode
 nekobox
 share.yaml
+templates/user/profile.html.old
+*.old
+*.bak
