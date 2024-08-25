@@ -48,8 +48,8 @@ type User struct {
 	Domain               string                `json:"domain"`
 	Background           string                `json:"background"`
 	Intro                string                `json:"intro"`
-    Introcolor           string                `json:"introcolor"`
-    Usernamecolor        string                `json:"usernamecolor"`
+	Introcolor           string                `json:"introcolor"`
+	Usernamecolor        string                `json:"usernamecolor"`
 	Qrcodebackcolor      string                `json:"qrcodebackcolor"`
 	Qrcodecolor          string                `json:"qrcodecolor"`
 	BackgroundImage      string                `json:"backgroundimage"`
@@ -98,8 +98,8 @@ type CreateUserOptions struct {
 	Qrcodepdpcolor       string
 	BackgroundImage      string
 	Backgroundimagealpha string
-        Usernamecolor        string
-        Introcolor           string
+	Usernamecolor        string
+	Introcolor           string
 }
 
 var (
@@ -129,8 +129,24 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
 		Notify:               NotifyTypeEmail,
-                Usernamecolor:        opts.Usernamecolor,
-                Introcolor:           opts.Introcolor,
+		Usernamecolor:        opts.Usernamecolor,
+		Introcolor:           opts.Introcolor,
+		Name:                 opts.Name,
+		Password:             opts.Password,
+		Email:                opts.Email,
+		Avatar:               opts.Avatar,
+		Domain:               opts.Domain,
+		Background:           opts.Background,
+		Intro:                opts.Intro,
+		Qrcodebackcolor:      opts.Qrcodebackcolor,
+		Qrcodecolor:          opts.Qrcodecolor,
+		Dotscale:             opts.Dotscale,
+		BackgroundImage:      opts.BackgroundImage,
+		Backgroundimagealpha: opts.Backgroundimagealpha,
+		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
+		Notify:               NotifyTypeEmail,
+		Usernamecolor:        opts.Usernamecolor,
+		Introcolor:           opts.Introcolor,
 	}
 	newUser.EncodePassword()
 
@@ -174,8 +190,8 @@ type UpdateUserOptions struct {
 	BackgroundImage      string
 	Backgroundimagealpha string
 	Qrcodepdpcolor       string
-    Usernamecolor        string
-    Introcolor           string
+	Usernamecolor        string
+	Introcolor           string
 	Notify               NotifyType
 }
 
@@ -202,8 +218,8 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		BackgroundImage:      opts.BackgroundImage,
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
-        Usernamecolor:        opts.Usernamecolor,
-        Introcolor:           opts.Introcolor,
+		Usernamecolor:        opts.Usernamecolor,
+		Introcolor:           opts.Introcolor,
 		Notify:               opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")

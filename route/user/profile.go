@@ -75,6 +75,20 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		}
 	}
 
+	var BackgroundImageURL string
+	backgroundimageFile, backgroundimageFileHeader, err := ctx.Request().FormFile("backgroundimage")
+	if err == nil {
+		if backgroundimageFileHeader.Size > storage.MaxBackgroundSize {
+			ctx.SetError(errors.New("背景图文件太大，最大支持 2MB"))
+			ctx.Success("user/profile")
+			return
+		}
+		BackgroundImageURL, err = storage.UploadPictureToOSS(backgroundimageFile, backgroundimageFileHeader)
+		if err != nil {
+			logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to upload QRbackgroundImage")
+		}
+	}
+
 	if f.NewPassword != "" {
 		if err := db.Users.ChangePassword(ctx.Request().Context(), ctx.User.ID, f.OldPassword, f.NewPassword); err != nil {
 			if errors.Is(err, db.ErrBadCredential) {
@@ -105,8 +119,8 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		Dotscale:             f.Dotscale,
 		BackgroundImage:      BackgroundImageURL,
 		Backgroundimagealpha: f.Backgroundimagealpha,
-                Usernamecolor:        f.Usernamecolor,
-                Introcolor:           f.Introcolor,
+		Usernamecolor:        f.Usernamecolor,
+		Introcolor:           f.Introcolor,
 		Qrcodepdpcolor:       f.Qrcodepdpcolor,
 		Notify:               notify,
 	}); err != nil {
@@ -197,8 +211,8 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 		{"二维码背景色", user.Qrcodebackcolor},
 		{"二维码前景色", user.Qrcodecolor},
 		{"二维码点大小", user.Dotscale},
-                {"昵称颜色", user.Usernamecolor},
-                {"介绍颜色", user.Introcolor},
+		{"昵称颜色", user.Usernamecolor},
+		{"介绍颜色", user.Introcolor},
 		{"二维码探测图形颜色", user.Qrcodepdpcolor},
 		{"头像 URL", user.Avatar},
 		{"背景图 URL", user.Background},

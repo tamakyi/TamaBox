@@ -8,6 +8,9 @@
     <div x-data="{ c: '' }" x-init="c = await (async () => {
     let log = (await(await fetch('https://api.tama.host/api/box-api/tamabox.importantinfomation.json')).json()).items[0];
     return `<p class=uk-article-meta>重要事件 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
+    <div x-data="{ c: '' }" x-init="c = await (async () => {
+    let log = (await(await fetch('https://api.tama.host/api/box-api/tamabox.importantinfomation.json')).json()).items[0];
+    return `<p class=uk-article-meta>重要事件 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
   })()" x-html="c">
   </div>
 </div>

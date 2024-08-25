@@ -12,14 +12,6 @@
     <input name="name" class="uk-input" type="text" value="{{.LoggedUser.Name}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">昵称颜色</label>
-    <input name="usernamecolor" class="uk-input" type="color" value="{{.LoggedUser.Usernamecolor}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">昵称颜色</label>
-    <input name="usernamecolor" class="uk-input" type="color" value="{{.LoggedUser.Usernamecolor}}">
-  </div>
-  <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">旧密码</label>
     <input name="old_password" class="uk-input" type="text" placeholder="修改密码使用，留空则不修改">
   </div>
@@ -32,30 +24,12 @@
     <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">提问箱介绍颜色</label>
-    <input name="introcolor" class="uk-input" type="color" value="{{.LoggedUser.Introcolor}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景色(十六进制颜色 例：#000000)</label>
+    <input name="qrcodebackcolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodebackcolor}}">
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码前景色（黑块部分:默认自动匹配，该选项仅保留，不实际生效）</label>
-    <input name="qrcodebackcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodebackcolor}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景色（亮色部分）</label>
-    <input name="qrcodecolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodecolor}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码探测图形颜色</label>
-    <input name="qrcodepdpcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodepdpcolor}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码点大小(←小 大→)</label>
-    <input name="dotscale" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Dotscale}}">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←不透明 很透明→)</label>
-    <input name="backgroundimagealpha" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Backgroundimagealpha}}">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←不透明 很透明→)</label>
-    <input name="backgroundimagealpha" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Backgroundimagealpha}}">
+    <label class="uk-form-label" for="form-stacked-text">二维码前景色(十六进制颜色 例：#000000)</label>
+    <input name="qrcodecolor" class="uk-input" type="text" value="{{.LoggedUser.Qrcodecolor}}">
   </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新提问通知</label>
@@ -80,20 +54,6 @@
     </div>
   </div>
   <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景图</label>
-    <div uk-form-custom="target: true">
-      <input type="file" name="backgroundimage">
-      <input class="uk-input uk-form-width-large" type="text" placeholder="上传二维码背景" disabled>
-    </div>
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">二维码背景图</label>
-    <div uk-form-custom="target: true">
-      <input type="file" name="backgroundimage">
-      <input class="uk-input uk-form-width-large" type="text" placeholder="上传二维码背景" disabled>
-    </div>
-  </div>
-  <div class="uk-margin">
     <button type="submit" class="uk-button uk-button-primary">修改信息</button>
     <a href="/user/logout" class="uk-button uk-button-danger">登出</a>
   </div>
@@ -111,10 +71,6 @@
                {{ if eq .LoggedUser.HarassmentSetting "register_only"}}checked{{end}} >
         <span class="uk-text-small"> 仅允许注册用户向我提问</span>
       </label>
-    </div>
-    <div class="uk-margin">
-      <label class="uk-form-label">屏蔽词设置（使用半角逗号 <code>,</code> 分隔，最多支持 10 个屏蔽词，每个屏蔽词最大长度为 10）</label>
-      <input name="block_words" class="uk-input" type="text" value="{{.LoggedUser.BlockWords}}">
     </div>
     <div class="uk-margin">
       <button type="submit" class="uk-button uk-button-primary">更新防骚扰设置</button>
