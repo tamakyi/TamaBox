@@ -14,6 +14,9 @@
 ### 发表态度
 ![CWP](./dev/taidu.png#gh-light-mode-only)
 
+### 社交信息展示
+![SCL](./dev/social.png#gh-light-mode-only)
+
 ## 安装
 
 ### 需求
