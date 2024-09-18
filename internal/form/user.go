@@ -17,6 +17,10 @@ type UpdateProfile struct {
 	Backgroundimagealpha string `valid:"required" label:"二维码背景透明度"`
 	Qrcodepdpcolor       string `valid:"required;minlen:7;maxlen:7" label:"二维码探测图形颜色"`
 	NotifyEmail          string `label:"开启邮箱通知"`
+	Acfunlink            string `valid:"maxlen:30" label:"AcFun主页"`
+	Bililink             string `valid:"maxlen:30" label:"Bili主页"`
+	Weibolink            string `valid:"maxlen:30" label:"微博主页"`
+	Bloglink             string `valid:"maxlen:30" label:"个人博客主页"`
 }
 
 type UpdateHarassment struct {
