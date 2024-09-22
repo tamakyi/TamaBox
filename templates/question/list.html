@@ -16,18 +16,26 @@
       <h3 id="usernamecolor">{{ .PageUser.Name }}</h3>
       <p id="introcolor">{{ .PageUser.Intro }}</p>
         <div class="icon-container">
+        {{ if ne  .PageUser.Acfunlink "none" }}
          <a href="https://{{.PageUser.Acfunlink}}" target="_blank">
           <img src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/content/ailicili.png" alt="acfunlink" class="icon">
          </a>
+        {{ end }}
+        {{ if ne  .PageUser.Bililink "none" }}
          <a href="https://{{.PageUser.Bililink}}" target="_blank">
           <img src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/content/bili.png" alt="bililink" class="icon">
          </a>
+        {{ end }}
+        {{ if ne  .PageUser.Weibolink "none" }}
          <a href="https://{{.PageUser.Weibolink}}" target="_blank">
           <img src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/content/weibo.png" alt="weibolink" class="icon">
          </a>
+        {{ end }}
+        {{ if ne  .PageUser.Bloglink "none" }}
           <a href="https://{{.PageUser.Bloglink}}" target="_blank">
            <img src="https://img-tama-guru.oss-cn-hongkong.aliyuncs.com/nekobox/content/blog.png" alt="bloglink" class="icon">
          </a>
+        {{ end }}
         </div>
     </div>
   </div>

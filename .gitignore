@@ -21,6 +21,4 @@ app.ini
 .vscode
 nekobox
 share.yaml
-*.old
-*.old
-*.old
+README.md
