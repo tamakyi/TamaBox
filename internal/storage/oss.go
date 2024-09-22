@@ -17,9 +17,10 @@ import (
 	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
-const (
-	OSSPictureKeyPrefix = "picture/"
-)
+//move OSS to S3
+//const (
+//	OSSPictureKeyPrefix = "picture/"
+//)
 
 // UploadPictureToOSS upload user's avatar or background image to OSS.
 // It returns the uploaded asset URL.
@@ -39,7 +40,9 @@ func UploadPictureToOSS(file multipart.File, _ *multipart.FileHeader) (string, e
 	month := int(now.Month())
 	day := now.Day()
 
-	key := fmt.Sprintf("%s%d/%02d/%02d/%s", OSSPictureKeyPrefix, year, month, day, randstr.Hex(15))
+//move OSS to S3
+//	key := fmt.Sprintf("%s%d/%02d/%02d/%s", OSSPictureKeyPrefix, year, month, day, randstr.Hex(15))
+	key := fmt.Sprintf("%s%d/%02d/%02d/%s", PictureKeyPrefix, year, month, day, randstr.Hex(15))
 
 	if err := gadget.Retry(5, func() error {
 		if err := bucket.PutObject(key, file); err != nil {

@@ -18,8 +18,10 @@
 ## 截图
 QRCode:
 [!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
-Commit with Pic
+### 发表态度
 [!CWP](./dev/commitwithpic.jpg)
+### 社交信息展示
+![SCL](./dev/social.png#gh-light-mode-only)
 ## 安装
 
 ### 需求

@@ -41,7 +41,7 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 			ctx.Success("user/profile")
 			return
 		}
-		avatarURL, err = storage.UploadPictureToOSS(avatarFile, avatarFileHeader)
+		avatarURL, err = storage.UploadPictureToS3(avatarFile, avatarFileHeader)
 		if err != nil {
 			logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to upload avatar")
 		}
@@ -55,7 +55,7 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 			ctx.Success("user/profile")
 			return
 		}
-		backgroundURL, err = storage.UploadPictureToOSS(backgroundFile, backgroundFileHeader)
+		backgroundURL, err = storage.UploadPictureToS3(backgroundFile, backgroundFileHeader)
 		if err != nil {
 			logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to upload background")
 		}
@@ -69,7 +69,7 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 			ctx.Success("user/profile")
 			return
 		}
-		BackgroundImageURL, err = storage.UploadPictureToOSS(backgroundimageFile, backgroundimageFileHeader)
+		BackgroundImageURL, err = storage.UploadPictureToS3(backgroundimageFile, backgroundimageFileHeader)
 		if err != nil {
 			logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to upload QRbackgroundImage")
 		}
