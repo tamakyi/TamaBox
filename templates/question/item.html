@@ -38,7 +38,7 @@
         {{ end }}
       </ul>
       {{ end }}
-      <p class="uk-text-small uk-text-right uk-text-muted">-来自@{{.PageUser.Name}}的回答</p>
+      <p class="uk-text-small uk-text-right uk-text-muted">-来自@{{.PageUser.Name}}于{{Date .Question.UpdatedAt "Y-m-d H:i:s"}}的回答</p>
     </div>
     {{end}}
 
