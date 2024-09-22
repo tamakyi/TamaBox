@@ -55,11 +55,8 @@
         // Create QRCode Object
         new QRCode(document.getElementById("boxqrimg"), options);
     </script>
-      {{ if eq .PageUser.HarassmentSetting "register_only"}}
-      <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>提问箱主人设置了仅注册用户提问</p>
-      {{  else  }}
-      <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
-      {{  end  }}
+
+    <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
     {{ end }}
     {{template "base/alert" .}}
     {{template "question/new-question-template" .}}
