@@ -244,7 +244,7 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	go func() {
 		if pageUser.Notify == db.NotifyTypeEmail {
 			// Send notification to page user.
-			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
+			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to user")
 			}
 		}
