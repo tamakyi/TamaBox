@@ -51,13 +51,13 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		Qrcodecolor:          "#696969",
         Usernamecolor:        "#000000",
         Introcolor:           "#000000",
-		Dotscale:             "0.5",
+		Dotscale:             "0.4",
 		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
-		Backgroundimagealpha: "0.5",
+		Backgroundimagealpha: "0.8",
 		Qrcodepdpcolor:       "#696969",
-		Acfunlink:             "www.acfun.cn",
-		Bililink:              "www.bilibili.com",
-		Weibolink:             "www.weibo.cn",
+		Acfunlink:             "none",
+		Bililink:              "none",
+		Weibolink:             "none",
 		Bloglink:              "box.tama.guru",
 	}); err != nil {
 		switch {
