@@ -51,7 +51,7 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		Qrcodecolor:          "#696969",
         Usernamecolor:        "#000000",
         Introcolor:           "#000000",
-		Dotscale:             "0.4",
+		Dotscale:             "0.35",
 		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
 		Backgroundimagealpha: "0.8",
 		Qrcodepdpcolor:       "#696969",

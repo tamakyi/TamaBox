@@ -244,8 +244,12 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	go func() {
 		if pageUser.Notify == db.NotifyTypeEmail {
 			// Send notification to page user.
+//			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
 			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to user")
+			}
+			if err := mail.SendNewQuestionMailToUser(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
+				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to questioner")
 			}
 		}
 	}()
@@ -253,7 +257,7 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	questionPrivateURL := fmt.Sprintf("/_/%s/%d?t=%s", pageUser.Domain, question.ID, question.Token)
 	questionPrivateAbsURL := fmt.Sprintf("%s%s", strings.TrimRight(conf.App.ExternalURL, "/"), questionPrivateURL)
 
-	ctx.SetSuccessFlash("发送问题成功！以下是提问私密链接，使用该链接可以随时查看你的提问，请注意保存。", fmt.Sprintf(`<a href="%s" target="_blank">%[1]s</a>`, questionPrivateAbsURL))
+	ctx.SetSuccessFlash("发送问题成功！以下是提问私密链接，使用该链接可以随时查看你的提问。如果你选择接收回复通知，该连接会发送到你的邮箱。", fmt.Sprintf(`<a href="%s" target="_blank">%[1]s</a>`, questionPrivateAbsURL))
 	ctx.Redirect(questionPrivateURL)
 }
 

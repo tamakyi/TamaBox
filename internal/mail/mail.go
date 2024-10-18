@@ -19,16 +19,28 @@ import (
 	"github.com/tamakyi/TamaBox/templates"
 )
 
+//func SendNewQuestionMail(email, domain string, questionID uint, questionContent string) error {
 func SendNewQuestionMail(email, domain string, questionID uint, questionContent string, token string) error {
 	params := map[string]string{
+		//"link":     fmt.Sprintf("%s/_/%s/%d", conf.App.ExternalURL, domain, questionID),
 		"link":     fmt.Sprintf("%s/_/%s/%d?t=%s", conf.App.ExternalURL, domain, questionID, token),
 		"question": questionContent,
 	}
 	return sendTemplateMail(email, "【狼的提问箱】您有一个新的提问", templates.FS, "mail/new-question.html", params)
 }
 
+func SendNewQuestionMailToUser(email, domain string, questionID uint, questionContent string, token string) error {
+	params := map[string]string{
+		"link":     fmt.Sprintf("%s/_/%s/%d?t=%s", conf.App.ExternalURL, domain, questionID, token),
+		"question": questionContent,
+	}
+	return sendTemplateMail(email, "【狼的提问箱】您发送了一个新的提问", templates.FS, "mail/new-question-to-user.html", params)
+}
+
+//func SendNewAnswerMail(email, domain string, questionID uint, question, answer string) error {
 func SendNewAnswerMail(email, domain string, questionID uint, question, answer string, token string) error {
 	params := map[string]string{
+		//"link":     fmt.Sprintf("%s/_/%s/%d", conf.App.ExternalURL, domain, questionID),
 		"link":     fmt.Sprintf("%s/_/%s/%d?t=%s", conf.App.ExternalURL, domain, questionID, token),
 		"question": question,
 		"answer":   answer,

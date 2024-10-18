@@ -232,6 +232,9 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to user")
 			}
+			if err := mail.SendNewQuestionMailToUser(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
+				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to questioner")
+			}
 		}
 	}()
 

@@ -26,11 +26,11 @@
   <div class="uk-margin uk-grid-small" x-data="{ receiveReplyViaEmail: '{{.receive_reply_via_email}}' === 'on' }">
     <label class="uk-text-small">
       <input name="receive_reply_via_email" class="uk-checkbox" type="checkbox"
-             x-model="receiveReplyViaEmail"> 我想接收回复通知
+             x-model="receiveReplyViaEmail"> 我想保存提问信息并接收回复通知
     </label>
     <div x-show="receiveReplyViaEmail">
       <label>
-        <label class="uk-form-label">接收回复通知的电子邮箱地址（当你的提问被提问箱主人回复时，你将收到一封邮件）</label>
+        <label class="uk-form-label">接收回复通知的电子邮箱地址（你的问题及链接内容会发送到你的邮箱，且当你的提问被提问箱主人回复时，你将收到一封邮件）</label>
         <input name="receive_reply_email" class="uk-input" type="text" placeholder="电子邮箱地址">
       </label>
     </div>
