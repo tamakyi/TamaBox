@@ -7,6 +7,13 @@
 <p align="center">
 匿名提问箱 / Anonymous Question Box
 
+## 与原版区别
+#### 更自由的二维码和签名等信息自定义
+#### 允许用户在提问箱主页放置个人链接
+#### 提问时可以双向发送邮件（避免提问链接丢失）
+#### 其他一些奇奇怪怪的改动...
+#### ~~应该不会随便关站~~
+
 ## 截图
 
 ### QRcode
@@ -18,7 +25,7 @@
 ## 截图
 QRCode:
 [!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
-Commit with Pic
+图片评论
 [!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
