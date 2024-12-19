@@ -42,6 +42,14 @@
     <input name="introcolor" class="uk-input" type="color" value="{{.LoggedUser.Introcolor}}">
   </div>
   <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">显示前台二维码（不开启只能通过网页分享）</label>
+    <label>
+      <input name="showqrcode" class="uk-checkbox" type="checkbox"
+             {{ if eq .LoggedUser.ShowQRCode "scode"}}checked{{end}}>
+      <span class="uk-text-small"> 是</span>
+    </label>
+  </div>
+  <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">二维码前景色（黑块部分:默认自动匹配，该选项仅保留，不实际生效）</label>
     <input name="qrcodebackcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodebackcolor}}">
   </div>

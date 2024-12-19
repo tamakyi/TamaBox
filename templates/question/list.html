@@ -45,6 +45,7 @@ document.getElementById("introcolor").style.color = {{.PageUser.Introcolor}};
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
     {{ if .CanAsk }}
     <script src="https://r2.337845818.best/tamabox/cdn/js/remake/jquery.min.js"></script>
+    {{if eq .PageUser.ShowQRCode "scode"}}
     <script src='https://r2.337845818.best/tamabox/cdn/js/remake/easy.qrcode.min.js' type="text/javascript"  charset="utf-8"></script>
     <center><div id="boxqrimg"></div></center>
     <script type="text/javascript">
@@ -59,7 +60,7 @@ document.getElementById("introcolor").style.color = {{.PageUser.Introcolor}};
             dotScaleTiming: "{{.PageUser.Dotscale}}",
             dotScaleA: "{{.PageUser.Dotscale}}",
             correctLevel: QRCode.CorrectLevel.H,
-            crossOrigin: 'anonymous',
+            <!--crossOrigin: 'anonymous',--!>
             logo: {{.PageUser.Avatar}},
             logoWidth: 60,
             logoHeight: 60,
@@ -79,6 +80,10 @@ document.getElementById("introcolor").style.color = {{.PageUser.Introcolor}};
     </script>
  
     <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
+    {{ end }}
+    {{if eq .PageUser.ShowQRCode "nscode"}}
+    <p class="uk-text-center uk-text-small">谁都可以以匿名的形式提问</p>
+    {{ end }}
     {{ end }}
     {{template "base/alert" .}}
     {{template "question/new-question-template" .}}
