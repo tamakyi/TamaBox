@@ -95,13 +95,6 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		notify = db.NotifyTypeNone
 	}
 
-	var showqrcode db.ShowQRCodeType
-	if f.SQRCode != "" {
-		showqrcode = db.ShowQRCodeTypeYes
-	} else {
-		showqrcode = db.ShowQRCodeTypeNo
-	}
-
 	if err := db.Users.Update(ctx.Request().Context(), ctx.User.ID, db.UpdateUserOptions{
 		Name:                 f.Name,
 		Avatar:               avatarURL,
@@ -112,15 +105,14 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		Dotscale:             f.Dotscale,
 		BackgroundImage:      BackgroundImageURL,
 		Backgroundimagealpha: f.Backgroundimagealpha,
-		Usernamecolor:        f.Usernamecolor,
-		Introcolor:           f.Introcolor,
+        Usernamecolor:        f.Usernamecolor,
+        Introcolor:           f.Introcolor,
 		Qrcodepdpcolor:       f.Qrcodepdpcolor,
 		Acfunlink:            f.Acfunlink,
 		Bililink:             f.Bililink,
 		Weibolink:            f.Weibolink,
 		Bloglink:             f.Bloglink,
 		Notify:               notify,
-		ShowQRCode:           showqrcode,
 	}); err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to update user profile")
 		ctx.SetInternalErrorFlash()
@@ -213,8 +205,8 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 		{"二维码背景色", user.Qrcodebackcolor},
 		{"二维码前景色", user.Qrcodecolor},
 		{"二维码点大小", user.Dotscale},
-		{"昵称颜色", user.Usernamecolor},
-		{"介绍颜色", user.Introcolor},
+        {"昵称颜色", user.Usernamecolor},
+        {"介绍颜色", user.Introcolor},
 		{"二维码探测图形颜色", user.Qrcodepdpcolor},
 		{"头像 URL", user.Avatar},
 		{"背景图 URL", user.Background},

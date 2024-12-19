@@ -48,8 +48,8 @@ type User struct {
 	Domain               string                `json:"domain"`
 	Background           string                `json:"background"`
 	Intro                string                `json:"intro"`
-	Introcolor           string                `json:"introcolor"`
-	Usernamecolor        string                `json:"usernamecolor"`
+    Introcolor           string                `json:"introcolor"`
+    Usernamecolor        string                `json:"usernamecolor"`
 	Qrcodebackcolor      string                `json:"qrcodebackcolor"`
 	Qrcodecolor          string                `json:"qrcodecolor"`
 	BackgroundImage      string                `json:"backgroundimage"`
@@ -61,7 +61,6 @@ type User struct {
 	Qrcodepdpcolor       string                `json:"qrcodepdpcolor"`
 	Backgroundimagealpha string                `json:"Backgroundimagealpha"`
 	Notify               NotifyType            `json:"notify"`
-	ShowQRCode           ShowQRCodeType        `json:"showqrcode`
 	HarassmentSetting    HarassmentSettingType `json:"harassment_setting"`
 	BlockWords           string                `json:"-"`
 }
@@ -71,13 +70,6 @@ type NotifyType string
 const (
 	NotifyTypeEmail NotifyType = "email"
 	NotifyTypeNone  NotifyType = "none"
-)
-
-type ShowQRCodeType string
-
-const (
-	ShowQRCodeTypeYes ShowQRCodeType = "scode"
-	ShowQRCodeTypeNo  ShowQRCodeType = "nscode"
 )
 
 type HarassmentSettingType string
@@ -110,12 +102,12 @@ type CreateUserOptions struct {
 	Qrcodepdpcolor       string
 	BackgroundImage      string
 	Backgroundimagealpha string
-	Usernamecolor        string
-	Introcolor           string
-	Acfunlink            string
-	Bililink             string
-	Weibolink            string
-	Bloglink             string
+    Usernamecolor        string
+    Introcolor           string
+    Acfunlink            string
+    Bililink             string
+    Weibolink            string
+    Bloglink             string
 }
 
 var (
@@ -145,13 +137,12 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
 		Notify:               NotifyTypeEmail,
-		ShowQRCode:           ShowQRCodeTypeYes,
-		Usernamecolor:        opts.Usernamecolor,
-		Introcolor:           opts.Introcolor,
-		Acfunlink:            opts.Acfunlink,
-		Bililink:             opts.Bililink,
-		Weibolink:            opts.Weibolink,
-		Bloglink:             opts.Bloglink,
+        Usernamecolor:        opts.Usernamecolor,
+        Introcolor:           opts.Introcolor,
+        Acfunlink:            opts.Acfunlink,
+        Bililink:             opts.Bililink,
+        Weibolink:            opts.Weibolink,
+        Bloglink:             opts.Bloglink,
 	}
 	newUser.EncodePassword()
 
@@ -195,14 +186,13 @@ type UpdateUserOptions struct {
 	BackgroundImage      string
 	Backgroundimagealpha string
 	Qrcodepdpcolor       string
-	Usernamecolor        string
-	Introcolor           string
-	Acfunlink            string
-	Bililink             string
-	Weibolink            string
-	Bloglink             string
+    Usernamecolor        string
+    Introcolor           string
+    Acfunlink            string
+    Bililink             string
+    Weibolink            string
+    Bloglink             string
 	Notify               NotifyType
-	ShowQRCode           ShowQRCodeType
 }
 
 func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) error {
@@ -228,14 +218,13 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		BackgroundImage:      opts.BackgroundImage,
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
-		Usernamecolor:        opts.Usernamecolor,
-		Introcolor:           opts.Introcolor,
-		Acfunlink:            opts.Acfunlink,
-		Bililink:             opts.Bililink,
-		Weibolink:            opts.Weibolink,
-		Bloglink:             opts.Bloglink,
+        Usernamecolor:        opts.Usernamecolor,
+        Introcolor:           opts.Introcolor,
+        Acfunlink:            opts.Acfunlink,
+        Bililink:             opts.Bililink,
+        Weibolink:            opts.Weibolink,
+        Bloglink:             opts.Bloglink,
 		Notify:               opts.Notify,
-		ShowQRCode:           opts.ShowQRCode,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
 	}

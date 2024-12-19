@@ -9,15 +9,14 @@ type UpdateProfile struct {
 	OldPassword          string `label:"旧密码"`
 	NewPassword          string `valid:"maxlen:30" label:"新密码"`
 	Intro                string `valid:"required;maxlen:100" label:"介绍"`
-	Usernamecolor        string `valid:"required;minlen:7;maxlen:7" label:"用户名颜色"`
-	Introcolor           string `valid:"required;minlen:7;maxlen:7" label:"个人说明颜色"`
+    Usernamecolor        string `valid:"required;minlen:7;maxlen:7" label:"用户名颜色"`
+    Introcolor           string `valid:"required;minlen:7;maxlen:7" label:"个人说明颜色"`
 	Qrcodebackcolor      string `valid:"required;minlen:7;maxlen:7" label:"二维码背景色"`
 	Qrcodecolor          string `valid:"required;minlen:7;maxlen:7" label:"二维码前景色"`
 	Dotscale             string `valid:"required" label:"二维码点大小"`
 	Backgroundimagealpha string `valid:"required" label:"二维码背景透明度"`
 	Qrcodepdpcolor       string `valid:"required;minlen:7;maxlen:7" label:"二维码探测图形颜色"`
 	NotifyEmail          string `label:"开启邮箱通知"`
-	SQRCode              string `label:"显示二维码"`
 	Acfunlink            string `valid:"maxlen:30" label:"AcFun主页"`
 	Bililink             string `valid:"maxlen:30" label:"Bili主页"`
 	Weibolink            string `valid:"maxlen:30" label:"微博主页"`
@@ -26,5 +25,5 @@ type UpdateProfile struct {
 
 type UpdateHarassment struct {
 	RegisterOnly string `label:"仅允许注册用户"`
-	BlockWords   string `label:"屏蔽词"`
+	BlockWords string `label:"屏蔽词"`
 }
