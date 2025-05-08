@@ -67,32 +67,46 @@
          width: 20px; /* 设置图标的宽度 */
          height: auto; /* 保持图标的高度自动调整 */
       }
+      .emoji-placeholder {
+         display: inline-block;
+         animation: jump 0.5s ease-in-out;
+      }
+
+      @keyframes jump {
+         0%, 100% { transform: translateY(0); }
+         50% { transform: translateY(-5px); }
+      }
   </style>
 
+
+<!-- Commit 6d0a3ad -->
+  {{ if .IsUserPage }}
+   <meta property="og:image" content="{{ .PageUser.Avatar }}?og-image=1" />
+   <meta property="og:image:alt" content="{{ .PageUser.Name }}" />
+   <meta property="og:site_name" content="「提问箱」向我匿名提问吧~" />
+   <meta property="og:type" content="website" />
+   <meta property="og:title" content="「提问箱」向我匿名提问吧~" />
+   <meta property="og:url" content="{{ .ExternalURL }}/_/{{ .PageUser.Domain }}" />
+   <meta property="og:description" content="{{ .PageUser.Name }} 的提问箱，向我匿名提问吧~" />
+   <meta itemprop="image" content="{{ .PageUser.Avatar }}?og-image=1"/>
+   <meta name="msapplication-TileImage" content="{{ .PageUser.Avatar }}"/>
+   <link rel="shortcut icon" href="{{ .PageUser.Avatar }}?og-image=1"/>
+   <link rel="apple-touch-icon" href="{{ .PageUser.Avatar }}?og-image=1"/>
+   <link rel="icon" sizes="192x192" href="{{ .PageUser.Avatar }}?og-image=1">
+   <meta name="twitter:image:src" content="{{ .PageUser.Avatar }}?og-image=1" />
+   {{ else }}
   <meta itemprop="image" content="https://r2.337845818.best/tamabox/tamabox_low.png"/>
   <meta name="msapplication-TileImage" content="https://r2.337845818.best/tamabox/tamabox_low.png"/>
   <link rel="shortcut icon" href="https://r2.337845818.best/tamabox/tamabox_low.png" />
   <link rel="apple-touch-icon" href="https://r2.337845818.best/tamabox/tamabox_low.png"/>
   <link rel="icon" sizes="192x192" href="https://r2.337845818.best/tamabox/tamabox_low.png">
+  <meta name="twitter:image:src" content="https://r2.337845818.best/tamabox/tamabox_low.png" />
+   {{ end }}
+
 <!-- Google and Bing -->
   <meta name="google-site-verification" content="fEPwRRJfiGsgwc5SINBQwZhPK8F0cwRaOvRx0YRurI4" />
   <meta name="msvalidate.01" content="2F185E8E63C93635F50B3574F3B31E42" />
-<!-- Matomo -->
-<script>
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="https://data.tama.guru/";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '10']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Code -->
-
+  <script defer src="https://mami.tama.guru/tamami.js" data-website-id="c42ebe8b-9281-4da0-83a4-8f18b3e710fe"></script>
 </head>
 <body>
 <nav class="uk-navbar-container uk-margin" uk-navbar>
@@ -106,7 +120,34 @@
         {{ end }}
       </div>
     </div>
-    <a class="uk-navbar-item uk-logo" href="/">狼的提问箱</a>
+    <a class="uk-navbar-item uk-logo" href="/"><span class="emoji-placeholder" aria-label="随机动物符号">狼</span>的提问箱</a>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+      const emojis = ["🐺","🐗","🐻","🐨","🐼","🐹","🐭","🐰","🦊","🐮","🐷","🐽","🐸","🐒","🦍","🐔","🐧","🐦","🐤","🐦‍⬛","🦅","🦉","🦇","🐴","🦄","🐝","🦎","🦖","🦕","🐙","🦑","🦐","🦞","🦀","🐡","🐠","🐟","🐬","🐳","🐋","🦈","🐊","🐅","🐆","🦓","🦍","🦧","🐘","🦛","🦏","🐪","🐫","🦒","🦘","🐃","🐂","🐄","🐎","🐖","🐏","🐑","🦙","🐐","🦌","🐕","🐩","🦮","🐕‍🦺","🐈","🐋","🐳","🐬","🐉","🐲"];
+      const placeholder = document.querySelector('.emoji-placeholder');
+    
+      if (placeholder) {
+          placeholder.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      }
+    });
+    </script>
+    <script>
+        function isEmojiSupported() {
+            const ctx = document.createElement("canvas").getContext("2d");
+            ctx.canvas.width = ctx.canvas.height = 1;
+            ctx.fillText("🐻", -4, 4);
+            return ctx.getImageData(0, 0, 1, 1).data[3] > 0;
+        }        
+
+        // 在替换前检测
+        if (isEmojiSupported()) {
+            // 执行 emoji 替换
+        } else {
+            // 回退方案：用字体图标替代
+            logo.textContent = logo.textContent.replace('狼', '🐺');
+        }
+    </script>
+
     <div class="uk-navbar-center-right">
       <div>
         {{ if .IsLogged }}
