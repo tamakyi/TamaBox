@@ -10,14 +10,15 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	"github.com/NekoWheel/NekoBox/internal/mail"
-	"github.com/NekoWheel/NekoBox/internal/security/censor"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/mail"
+	"github.com/tamakyi/TamaBox/internal/security/censor"
 )
 
 func Questioner(ctx context.Context, pageUser *db.User) {
+    token := ctx.Query("t")
 	questionID := uint(ctx.ParamInt("questionID"))
 	question, err := db.Questions.GetByID(ctx.Request().Context(), questionID)
 	if err != nil {
@@ -44,15 +45,18 @@ func Questioner(ctx context.Context, pageUser *db.User) {
 
 	// Check the question is belongs to the correct page user.
 	// If the question has not been answered, we should check the question is belongs to the correct page user.
-	if question.UserID != pageUser.ID || ((question.Answer == "" || question.IsPrivate) && (!ctx.IsLogged || ctx.User.ID != question.UserID)) {
+	// The questioner can use the token to view the question.
+	if question.UserID != pageUser.ID ||
+		((question.Answer == "" || question.IsPrivate) &&
+			(!ctx.IsLogged || ctx.User.ID != question.UserID) &&
+			(question.Token != "" && question.Token != token)) {
 		ctx.Redirect("/")
 		return
 	}
 
 	// The page's owner or the question's token can have the permission to delete the question.
 	// Inject the permission into the context.
-	token := ctx.Query("t")
-	canDelete := (ctx.IsLogged && ctx.User.ID == pageUser.ID) || (token == question.Token && question.Token != "")
+    canDelete := ctx.IsLogged && ctx.User.ID == pageUser.ID
 	ctx.Map(canDelete)
 	ctx.Data["CanDelete"] = canDelete
 
@@ -125,7 +129,8 @@ func PublishAnswer(ctx context.Context, pageUser *db.User, question *db.Question
 	go func() {
 		if question.ReceiveReplyEmail != "" && question.Answer == "" { // We only send the email when the question has not been answered.
 			// Send notification to questioner.
-			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer); err != nil {
+//			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer); err != nil {
+			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send receive reply mail to questioner")
 			}
 		}

@@ -5,11 +5,16 @@
       href="{{.userContent.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
 <link rel="icon" sizes="192x192"
       href="{{.userContent.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200">
+<style>
+    a.uk-button.uk-button-link {
+    text-transform: none;
+}
+</style>
 <div>
   <div class="uk-card uk-card-default">
     <div class="uk-card-header">
       <div class="uk-text-left uk-text-small uk-text-muted">{{Date .Question.CreatedAt "Y-m-d H:i:s"}}</div>
-      <h4 class="uk-text-center uk-margin-top uk-margin-bottom uk-text-break">{{.Question.Content}}</h4>
+      <h4 class="uk-text-center uk-margin-top uk-margin-bottom uk-text-break">{{QuestionFormat .Question.Content}}</h4>
       {{ if .AskUploadImages }}
       <ul class="uk-thumbnav" uk-margin>
         {{ range $index, $elem := .AskUploadImages }}
@@ -25,7 +30,8 @@
 
     {{if ne .Question.Answer ""}}
     <div class="uk-card-body">
-      <p class="uk-text-small uk-text-break">{{AnswerFormat .Question.Answer}}</p>
+      <!--<div class="uk-text-left uk-text-small uk-text-muted">{{Date .Question.UpdatedAt "Y-m-d H:i:s"}}</div>-->
+     <p class="uk-text-small uk-text-break">{{AnswerFormat .Question.Answer}}
       {{ if .AnswerUploadImages }}
       <ul class="uk-thumbnav" uk-margin>
         {{ range $index, $elem := .AnswerUploadImages }}
@@ -37,7 +43,100 @@
         {{ end }}
       </ul>
       {{ end }}
-      <p class="uk-text-small uk-text-right uk-text-muted">-来自@{{.PageUser.Name}}的回答</p>
+      <p class="uk-text-small uk-text-right uk-text-muted">@{{.PageUser.Name}}于{{Date .Question.UpdatedAt "Y-m-d H:i:s"}}的回答</p>
+      {{ if not .CanDelete }}
+        <div id="waline"></div>
+        <script>
+            const waline = Waline.init({
+                el: '#waline',
+                //后端服务器地址
+                serverURL: 'https://artalk.tama.guru',
+                path: window.location.href,
+                    // 中文默认
+                locale: {
+                  nick: '昵称',
+                  nickError: '昵称不能少于3个字符',
+                  mail: '邮箱',
+                  mailError: '请填写正确的邮件地址',
+                  link: '网址',
+                  optional: '可选',
+                  placeholder: '欢迎评论（需要手工审核，不会立即展现）',
+                  sofa: '来发评论吧~',
+                  submit: '提交',
+                  like: '喜欢',
+                  cancelLike: '取消喜欢',
+                  reply: '回复',
+                  cancelReply: '取消回复',
+                  comment: '评论',
+                  refresh: '刷新',
+                  more: '加载更多...',
+                  preview: '预览',
+                  emoji: '表情',
+                  uploadImage: '上传图片',
+                  seconds: '秒前',
+                  minutes: '分钟前',
+                  hours: '小时前',
+                  days: '天前',
+                  now: '刚刚',
+                  uploading: '正在上传',
+                  login: '登录',
+                  logout: '退出',
+                  admin: '博主',
+                  sticky: '置顶',
+                  word: '字',
+                  wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+                  anonymous: '无名小狼',
+                  level0: '潜水',
+                  level1: '冒泡',
+                  level2: '吐槽',
+                  level3: '活跃',
+                  level4: '话痨',
+                  level5: '传说',
+                  gif: '表情包',
+                  gifSearchPlaceholder: '搜索表情包',
+                  profile: '个人资料',
+                  approved: '通过',
+                  waiting: '待审核',
+                  spam: '垃圾',
+                  unsticky: '取消置顶',
+                  oldest: '按倒序',
+                  latest: '按正序',
+                  hottest: '按热度',
+                  reactionTitle: '',
+                  reaction0: '哇哦',
+                  reaction1: 'prpr',
+                  reaction2: '流汗',
+                  reaction3: '生气',
+                  reaction4: '流鼻血',
+                  reaction5: 'あべ',
+                },
+                reaction: [
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGQ3OTRhYzRjMTBkZmZhZDVmZTA1EIjM1y8.gif',
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChQwOGEyOTlhYzRjMTBmOWFkZjAwYRCIzNcv.gif',
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGRhOTVhYzRjMTBkNmViYTVlNTA2EIjM1y8.gif',
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGU1OTJhYzRjMTBmMzk3ZmVmNTAyEIjM1y8.gif',
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGNkODdhYzRjMTBjYmEwOTFjNjAxEIjM1y8.gif',
+                 'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChQwODliOGVhYzRjMTBmOGM0ZWY1ZRCIzNcv.gif',
+                ],
+                meta: ['nick','mail'],
+                requiredMeta: ['mail'],
+                pageview: true,
+                search: false,
+                comment: false,
+                login: 'disable',
+                wordLimit: 50,
+                pageSize: 5,
+                avatar: 'monsterid',
+                emoji: [
+                    'https://gcore.jsdelivr.net/gh/tamakyi/emoji-collection@main/acfun-color/60x60',
+                ],
+                //禁止图片上传按钮
+                imageUploader: false,
+                //不显示版权标志
+                copyright: false,
+            });
+        </script>
+      {{ end }}
     </div>
     {{end}}
 
@@ -54,7 +153,7 @@
         {{ else }}
           <form class="uk-float-right" method="post" action="/_/{{ .PageUser.Domain }}/{{ .Question.ID }}/set-private">
             {{ .CSRFTokenHTML }}
-            <button type="submit" class="uk-button uk-button-default uk-button-small">设为仅自己可见</button>
+            <button type="submit" class="uk-button uk-button-default uk-button-small">设为私密</button>
           </form>
         {{ end }}
 
@@ -72,6 +171,9 @@
         </div>
       </div>
       {{ end }}
+      <div class="uk-margin uk-text-center">
+	 <a class="uk-button uk-button-link" href="/_/{{ .PageUser.Domain }}">返回{{.PageUser.Name}}的提问箱</a>
+      </div>
 
       {{ if .IsOwnPage}}
       <h5 class="uk-text-center">回答问题</h5>
@@ -79,7 +181,7 @@
         {{ .CSRFTokenHTML }}
         <div class="uk-margin uk-text-center">
               <textarea name="answer" class="uk-textarea" rows="5" maxlength="1000"
-                        placeholder="在此处撰写你的回答...">{{ if ne .Question.Answer "" }}{{ .Question.Answer }}{{ else }}{{ .answer }}{{ end }}</textarea>
+                        placeholder="在此处撰写你的回答...">{{ if .answer }}{{ .answer }}{{ else }}{{ .Question.Answer }}{{ end }}</textarea>
               <div x-data="{ files: null }" style="width: 100%; background-color: #f8f8f8; display: flex; padding-top: 5px; padding-bottom: 5px; align-items: center; justify-content: start;gap: 5px">
                 <div uk-form-custom>
                   <a href="#" class="uk-icon-link" uk-icon="image" style="margin-left: 10px"></a>

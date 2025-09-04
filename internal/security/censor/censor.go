@@ -11,8 +11,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/db"
 )
 
 var (
@@ -29,8 +29,8 @@ func Text(ctx context.Context, text string) (*TextCensorResponse, error) {
 	var responses []*TextCensorResponse
 
 	for _, censor := range []TextCensor{
-		// For we are using aliyun's API, we don't need to use qiniu's API.
-		//NewQiniuTextCensor(conf.App.QiniuAccessKey, conf.App.QiniuAccessSecret),
+		//No, we need to use qiniu's API.
+		NewQiniuTextCensor(conf.App.QiniuAccessKey, conf.App.QiniuAccessSecret),
 		NewAliyunTextCensor(conf.App.AliyunAccessKey, conf.App.AliyunAccessKeySecret),
 	} {
 		sourceName := censor.String()
@@ -65,7 +65,9 @@ func Text(ctx context.Context, text string) (*TextCensorResponse, error) {
 			}
 		}
 
-		response, err := censor.Censor(ctx, text)
+		// response, err := censor.Censor(ctx, text)
+                censorText := RemoveTrustedURL(text)
+                response, err := censor.Censor(ctx, censorText)
 		if err != nil {
 			logrus.WithContext(ctx).WithError(err).WithField("censor_source", sourceName).Error("Failed to censor text")
 			continue

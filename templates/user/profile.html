@@ -12,16 +12,16 @@
     <input name="name" class="uk-input" type="text" value="{{.LoggedUser.Name}}">
   </div>
   <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">昵称颜色</label>
+    <input name="usernamecolor" class="uk-input" type="color" value="{{.LoggedUser.Usernamecolor}}">
+  </div>
+  <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">旧密码</label>
     <input name="old_password" class="uk-input" type="text" placeholder="修改密码使用，留空则不修改">
   </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新密码</label>
     <input name="new_password" class="uk-input" type="text" placeholder="修改密码使用，留空则不修改">
-  </div>
-  <div class="uk-margin">
-    <label class="uk-form-label" for="form-stacked-text">提问箱介绍</label>
-    <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
   </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">新提问通知</label>
@@ -31,11 +31,41 @@
       <span class="uk-text-small"> 邮件</span>
     </label>
   </div>
+<hr>
+  <legend class="uk-legend">个性化设置</legend>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">提问箱介绍</label>
+    <input name="intro" class="uk-input" type="text" value="{{.LoggedUser.Intro}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">提问箱介绍颜色</label>
+    <input name="introcolor" class="uk-input" type="color" value="{{.LoggedUser.Introcolor}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码前景色（黑块部分:默认自动匹配，该选项仅保留，不实际生效）</label>
+    <input name="qrcodebackcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodebackcolor}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景色（亮色部分）</label>
+    <input name="qrcodecolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodecolor}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码探测图形颜色</label>
+    <input name="qrcodepdpcolor" class="uk-input" type="color" value="{{.LoggedUser.Qrcodepdpcolor}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码点大小(←小 大→)</label>
+    <input name="dotscale" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Dotscale}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景透明度(←不透明 很透明→)</label>
+    <input name="backgroundimagealpha" class="uk-input" type="range" step="0.01" min="0" max="1" value="{{.LoggedUser.Backgroundimagealpha}}">
+  </div>
   <div class="uk-margin">
     <label class="uk-form-label" for="form-stacked-text">个人头像</label>
     <div uk-form-custom="target: true">
       <input type="file" name="avatar">
-      <input class="uk-input uk-form-width-large" type="text" placeholder="上传个人头像" disabled>
+      <input class="uk-input uk-form-width-large" type="text" placeholder="上传个人头像(头像比例不为1:1就扁了你哦)" disabled>
     </div>
   </div>
   <div class="uk-margin">
@@ -44,6 +74,32 @@
       <input type="file" name="background">
       <input class="uk-input uk-form-width-large" type="text" placeholder="上传提问箱背景" disabled>
     </div>
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">二维码背景图</label>
+    <div uk-form-custom="target: true">
+      <input type="file" name="backgroundimage">
+      <input class="uk-input uk-form-width-large" type="text" placeholder="上传二维码背景(颜色过深的背景会导致二维码无法识别)" disabled>
+    </div>
+  </div>
+ <hr>
+  <legend class="uk-legend">社交信息设置</legend>
+  <span class="uk-text-muted">不要填写"https://"，如果填写值为"none"则前台不显示该项。</span>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">AcFun主页</label>
+    <input name="acfunlink" class="uk-input" type="text" value="{{.LoggedUser.Acfunlink}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">Bili主页</label>
+    <input name="bililink" class="uk-input" type="text" value="{{.LoggedUser.Bililink}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">微博主页</label>
+    <input name="weibolink" class="uk-input" type="text" value="{{.LoggedUser.Weibolink}}">
+  </div>
+  <div class="uk-margin">
+    <label class="uk-form-label" for="form-stacked-text">个人博客主页</label>
+    <input name="bloglink" class="uk-input" type="text" value="{{.LoggedUser.Bloglink}}">
   </div>
   <div class="uk-margin">
     <button type="submit" class="uk-button uk-button-primary">修改信息</button>
@@ -65,6 +121,10 @@
       </label>
     </div>
     <div class="uk-margin">
+      <label class="uk-form-label">屏蔽词设置（使用半角逗号 <code>,</code> 分隔，最多支持 10 个屏蔽词，每个屏蔽词最大长度为 10）</label>
+      <input name="block_words" class="uk-input" type="text" value="{{.LoggedUser.BlockWords}}">
+    </div>
+    <div class="uk-margin">
       <button type="submit" class="uk-button uk-button-primary">更新防骚扰设置</button>
     </div>
   </form>
@@ -78,7 +138,7 @@
         {{ .CSRFTokenHTML }}
         <button class="uk-button uk-button-default">导出我的所有数据</button>
         <br><br>
-        <span class="uk-text-muted">您可以导出您在 NekoBox 中的所有个人数据，包括你的基本信息、收到的问题以及回答。</span>
+        <span class="uk-text-muted">您可以导出您在 狼的提问箱 中的所有个人数据，包括你的基本信息、收到的问题以及回答。</span>
       </form>
     </dt>
     <dt>

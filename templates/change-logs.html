@@ -1,14 +1,15 @@
 {{template "base/header" .}}
 <div class="uk-card uk-card-default uk-card-body">
-  <h2>NekoBox 开发日记</h2>
+  <h2>修改记录</h2>
   <div>
-    <p>这里记录了 NekoBox 的功能迭代历史以及我的一些碎碎念。</p>
+    <p>为使首页更为简洁，今后修改的相关记录存档在此处（主要信息仍然会在首页提示）。</p>
   </div>
-  <dl class="uk-description-list uk-description-list-divider" x-data="{ list: [] }"
-      x-init="list = (await(await fetch('https://pb.n3ko.cc/api/collections/changelogs/records?sort=-published_at')).json())">
-    <template x-for="log in list.items">
-      <div x-html="`<br><hr><dt>${new Date(log.published_at).toLocaleDateString()}</dt><dd class=uk-text-small>${log.content}</dd>`"></div>
-    </template>
-  </dl>
+  <hr>
+  <br>
+  <div x-data="{ c: '' }" x-init="c = await (async () => {
+    let log = (await(await fetch('https://api.tama.guru/api/box-api/tamabox.changelogs.json')).json()).items[0];
+    return `<p class=uk-article-meta>修改记录 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
+  })()" x-html="c">
+  </div>
 </div>
 {{template "base/footer" .}}

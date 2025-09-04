@@ -1,14 +1,120 @@
 {{template "base/header" .}}
 <div class="uk-card uk-card-default uk-card-body">
-  <h1 class="uk-heading-small">NekoBox</h1>
-  <p>一个究极简洁的匿名问答箱。没有多余的社交元素，只是一问一答。不提醒，不打扰。你不需要下载 App，不需要绑定社交账号，甚至连邮箱都不需要是真的。（划掉</p>
-  <br>
+  <h1 class="uk-heading-small">狼的提问箱</h1>
+  <p style="color: red; font-weight: bold;">注意事项:<br>⭐8月14日至18日期间服务器因同IP段其他服务器架设非法服务而被防火墙连坐，目前已切换到新IP，数据未有丢失。请各位朋友珍惜服务器，不要在网上发布不适当的言论或做出一些不正确的行为，谢谢配合。<br>⭐如登陆提示SCRF Token错误，请刷新浏览器缓存（Shift+刷新)或使用隐私模式（一般是Shift+Ctrl+N）浏览。<del>这种情况一般是站长在调整后台导致的。</del><br>⭐如果提示无感验证码加载错误，请切换其他网络使用。<br>⭐本站有且仅有一个<a href="//box.tama.guru/_/tamakyi">小狼</a>，注意不要被骗。<br><br>
+  <p>⭐后续本站域名继续保留为<a href="https://box.tama.guru">https://box.tama.guru</a>，推荐国内用户使用。<br><a href="https://box.tama.guru">https://box.tama.guru</a>作为主服务站依托多个服务进行加速，<a href="https://box.337845818.best">https://box.337845818.best</a>作为备选CDN，以上域名推荐境外访问使用。<br>⭐一个无需注册即可提问的匿名提问箱。你不需要下载App，不需要绑定社交账号，甚至连邮箱都不需要是真的。<br>⭐本站在原版的基础上新增了问题页面的二维码等内容，方便箱主能够直接通过二维码分享给他人。各位用户可自行修改二维码背景图、颜色等个性化配置。<br>⭐可以到站长唯一提问提问箱链接<a href="//box.tama.guru/_/tamakyi">小狼的提问箱</a>尝试相关功能或给我提意见。<br>⭐可以加群：<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=rRy9g5XY34LIzOITGGmQHjX6BIICFpam&authKey=EjyNjp60KyG8BtKZGN8BXJaf1jl8okkCcUhVF2zAnGPRjhvuSdopnVqOSfSymnGg&noverify=0&group_code=777163254">小狼的群</a>一起水群。<br>⭐修改日志现在已经移动到<a href="https://box.tama.guru/change-logs">修改记录</a>页面。<br></p>
+  <hr><p>警告：<br>⭐本站不允许垃圾信息、广告、辱骂、涉政、暴恐、色情、违禁、无意义、灌水提问的出现，如有涉证或不良言论将直接删除。</p>
   <hr>
-  <div x-data="{ c: '' }" x-init="c = await (async () => {
-    let log = (await(await fetch('https://pb.n3ko.cc/api/collections/changelogs/records?sort=-published_at&perPage=1')).json()).items[0];
-    return `<p class=uk-article-meta>开发日记 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
+    <div x-data="{ c: '' }" x-init="c = await (async () => {
+    let log = (await(await fetch('https://api.tama.guru/api/box-api/tamabox.importantinfomation.json')).json()).items[0];
+    return `<p class=uk-article-meta>重要事件 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
   })()" x-html="c">
   </div>
-  <p class="uk-text-right uk-text-small"><a class="uk-link-text" href="/change-logs">查看更多...</a></p>
 </div>
-{{template "base/footer" .}}
+<p>提问箱信息统计:<pre style="overflow: hidden;"id="text"></pre>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://api.tama.guru/api/box-api/question.count.txt",
+        type: "get",
+        dataType: "text",
+        success: function (data) {
+            $("#text").text(data);
+        },
+        error: function (jqXHR, status, thrown) {
+            alert(thrown);
+        }
+    });
+</script>
+<!--<script src="https://r2.337845818.best/oss-to-r2/nekobox/cdn/waline/client/v2/waline.js"></script>
+<link href='https://r2.337845818.best/oss-to-r2/nekobox/cdn/waline/client/v2/waline-no-commits.css' rel='stylesheet' />-->
+ <div id="waline"></div>
+ <script>
+     const waline = Waline.init({
+         el: '#waline',
+         //后端服务器地址
+         serverURL: 'https://artalk.tama.guru',
+         path: window.location.href,
+             // 中文默认
+         locale: {
+           nick: '昵称',
+           nickError: '昵称不能少于3个字符',
+           mail: '邮箱',
+           mailError: '请填写正确的邮件地址',
+           link: '网址',
+           optional: '可选',
+           placeholder: '欢迎评论（可以无需登录，但需要手工审核，不会立即展现）',
+           sofa: '来发评论吧~',
+           submit: '提交',
+           like: '喜欢',
+           cancelLike: '取消喜欢',
+           reply: '回复',
+           cancelReply: '取消回复',
+           comment: '评论',
+           refresh: '刷新',
+           more: '加载更多...',
+           preview: '预览',
+           emoji: '表情',
+           uploadImage: '上传图片',
+           seconds: '秒前',
+           minutes: '分钟前',
+           hours: '小时前',
+           days: '天前',
+           now: '刚刚',
+           uploading: '正在上传',
+           login: '登录',
+           logout: '退出',
+           admin: '博主',
+           sticky: '置顶',
+           word: '字',
+           wordHint: '评论字数应在 $0 到 $1 字之间！\n当前字数：$2',
+           anonymous: '无名小狼',
+           level0: '潜水',
+           level1: '冒泡',
+           level2: '吐槽',
+           level3: '活跃',
+           level4: '话痨',
+           level5: '传说',
+           gif: '表情包',
+           gifSearchPlaceholder: '搜索表情包',
+           profile: '个人资料',
+           approved: '通过',
+           waiting: '待审核',
+           spam: '垃圾',
+           unsticky: '取消置顶',
+           oldest: '按倒序',
+           latest: '按正序',
+           hottest: '按热度',
+           reactionTitle: '',
+           reaction0: '哇哦',
+           reaction1: 'prpr',
+           reaction2: '流汗',
+           reaction3: '生气',
+           reaction4: '流鼻血',
+           reaction5: 'あべ',
+         },
+         reaction: [
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGQ3OTRhYzRjMTBkZmZhZDVmZTA1EIjM1y8.gif',
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChQwOGEyOTlhYzRjMTBmOWFkZjAwYRCIzNcv.gif',
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGRhOTVhYzRjMTBkNmViYTVlNTA2EIjM1y8.gif',
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGU1OTJhYzRjMTBmMzk3ZmVmNTAyEIjM1y8.gif',
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChYwOGNkODdhYzRjMTBjYmEwOTFjNjAxEIjM1y8.gif',
+          'https://ali-imgs.acfun.cn/kimg/bs2/zt-image-host/ChQwODliOGVhYzRjMTBmOGM0ZWY1ZRCIzNcv.gif',
+         ],
+         meta: ['nick','mail'],
+         requiredMeta: ['mail'],
+         pageview: true,
+         search: false,
+         login: 'enable',
+         wordLimit: 50,
+         pageSize: 5,
+         avatar: 'identicon',
+         emoji: [
+             'https://gcore.jsdelivr.net/gh/tamakyi/emoji-collection@main/acfun-color/60x60',
+         ],
+         //禁止图片上传按钮
+         imageUploader: false,
+         //不显示版权标志
+         copyright: false,
+     });
+ </script>
+ {{template "base/footer" .}}

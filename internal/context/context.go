@@ -20,9 +20,9 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	templatepkg "github.com/NekoWheel/NekoBox/internal/template"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/db"
+	templatepkg "github.com/tamakyi/TamaBox/internal/template"
 )
 
 type EndpointType string
@@ -91,7 +91,7 @@ func (c *Context) SetError(err error, f ...interface{}) {
 	span := trace.SpanFromContext(c.Request().Context())
 	if span.IsRecording() {
 		span.SetAttributes(
-			attribute.String("nekobox.error", err.Error()),
+			attribute.String("tamabox.error", err.Error()),
 		)
 	}
 }
@@ -185,8 +185,8 @@ func Contexter() flamego.Handler {
 		span := trace.SpanFromContext(ctx.Request().Context())
 		if span.IsRecording() {
 			span.SetAttributes(
-				attribute.Bool("nekobox.user.is-login", c.IsLogged),
-				attribute.Int("nekobox.user.id", int(userID)),
+				attribute.Bool("tamabox.user.is-login", c.IsLogged),
+				attribute.Int("tamabox.user.id", int(userID)),
 			)
 		}
 		c.ResponseWriter().Header().Set("Trace-ID", span.SpanContext().TraceID().String())
@@ -205,10 +205,12 @@ func Contexter() flamego.Handler {
 				case "warning":
 					c.Data["Warning"] = flash.Message
 				}
+				
+				c.Data["FlashTip"] = flash.FlashTip
 			}
 		}
 
-		c.SetTitle("NekoBox")
+		c.SetTitle("狼的提问箱")
 		c.Data["CSRFToken"] = x.Token()
 		c.Data["CSRFTokenHTML"] = templatepkg.Safe(`<input type="hidden" name="_csrf" value="` + x.Token() + `">`)
 
@@ -218,6 +220,9 @@ func Contexter() flamego.Handler {
 
 		c.Data["CurrentURI"] = ctx.Request().Request.RequestURI
 		c.Data["ExternalURL"] = conf.App.ExternalURL
+
+		// ⚠️ VConsole can only be enabled for the first user for security reasons.
+		c.Data["VConsole"] = ctx.Query("debug") == "on" && c.IsLogged && c.User.ID == 1
 
 		// 🚨 SECURITY: Prevent MIME type sniffing in some browsers,
 		c.ResponseWriter().Header().Set("X-Content-Type-Options", "nosniff")

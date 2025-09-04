@@ -21,3 +21,6 @@ app.ini
 .vscode
 nekobox
 share.yaml
+README.md
+*.md
+tamabox

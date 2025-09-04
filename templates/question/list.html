@@ -1,28 +1,83 @@
 {{template "base/header" .}}
+<!--<link rel="stylesheet" href="https://cdnjs.snrat.com/ajax/libs/uikit/3.3.3/css/uikit.min.css">-->
 <link rel="shortcut icon"
-      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+      href="{{.PageUser.Avatar}}"/>
 <link rel="apple-touch-icon"
-      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200"/>
+      href="{{.PageUser.Avatar}}"/>
 <link rel="icon" sizes="192x192"
-      href="{{.PageUser.Avatar}}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200">
+      href="{{.PageUser.Avatar}}">
 <div class="uk-card uk-card-default uk-text-center">
-  <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-       data-src="{{ .PageUser.Background }}?x-oss-process=image/format,png"
-       uk-img>
+  <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{{ .PageUser.Background }}" uk-img>
     <div class="uk-card-body">
-      <img class="uk-border-circle uk-box-shadow-large"
-           src="{{ .PageUser.Avatar }}?x-oss-process=image/auto-orient,1/quality,q_70/sharpen,200/resize,limit_0,m_fill,w_200,h_200/format,png"
-           width="100" height="100">
-      <h3>{{ .PageUser.Name }}</h3>
-      <p>{{ .PageUser.Intro }}</p>
+      <img class="uk-border-circle uk-box-shadow-large" src="{{ .PageUser.Avatar }}" style="width: 100px; height: 100px; max-width: 100%; max-height: 100%;">
+      <h3 id="usernamecolor">{{ .PageUser.Name }}</h3>
+      <p id="introcolor">{{ .PageUser.Intro }}</p>
+        <div class="icon-container">
+        {{ if ne  .PageUser.Acfunlink "none" }}
+         <a href="https://{{.PageUser.Acfunlink}}" target="_blank">
+          <img src="https://r2.337845818.best/tamabox/icon/social/ailicili.png" alt="acfunlink" class="icon">
+         </a>
+        {{ end }}
+        {{ if ne  .PageUser.Bililink "none" }}
+         <a href="https://{{.PageUser.Bililink}}" target="_blank">
+          <img src="https://r2.337845818.best/tamabox/icon/social/bili.png" alt="bililink" class="icon">
+         </a>
+        {{ end }}
+        {{ if ne  .PageUser.Weibolink "none" }}
+         <a href="https://{{.PageUser.Weibolink}}" target="_blank">
+          <img src="https://r2.337845818.best/tamabox/icon/social/weibo.png" alt="weibolink" class="icon">
+         </a>
+        {{ end }}
+        {{ if ne  .PageUser.Bloglink "none" }}
+          <a href="https://{{.PageUser.Bloglink}}" target="_blank">
+           <img src="https://r2.337845818.best/tamabox/icon/social/blog.png" alt="bloglink" class="icon">
+         </a>
+        {{ end }}
+        </div>
     </div>
   </div>
 </div>
-
+<script>
+document.getElementById("usernamecolor").style.color = {{.PageUser.Usernamecolor}};
+document.getElementById("introcolor").style.color = {{.PageUser.Introcolor}};
+</script>
 <div>
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
     {{ if .CanAsk }}
-    <p class="uk-text-center uk-text-small">谁都可以以匿名的形式提问</p>
+    <script src="https://r2.337845818.best/tamabox/cdn/js/remake/jquery.min.js"></script>
+    <script src='https://r2.337845818.best/tamabox/cdn/js/remake/easy.qrcode.min.js' type="text/javascript"  charset="utf-8"></script>
+    <center><div id="boxqrimg"></div></center>
+    <script type="text/javascript">
+        // Options
+        var options = {
+            text: window.location.href,
+            width: 200,
+            height: 200,
+            colorDark: "{{.PageUser.Qrcodebackcolor}}",
+            colorLight: "{{.PageUser.Qrcodecolor}}",
+            dotScale: "{{.PageUser.Dotscale}}",
+            dotScaleTiming: "{{.PageUser.Dotscale}}",
+            dotScaleA: "{{.PageUser.Dotscale}}",
+            correctLevel: QRCode.CorrectLevel.H,
+            logo: {{.PageUser.Avatar}},
+            logoWidth: 60,
+            logoHeight: 60,
+            logoBackgroundTransparent: true,
+            backgroundImage: {{.PageUser.BackgroundImage}},
+            backgroundImageAlpha: {{.PageUser.Backgroundimagealpha}},
+            autoColor: true,
+            PO: "{{.PageUser.Qrcodepdpcolor}}",
+            PI: "{{.PageUser.Qrcodepdpcolor}}",
+            AO: '',
+            AI: '',
+            timing: "{{.PageUser.Qrcodepdpcolor}}"
+        };
+        
+        // Create QRCode Object
+        new QRCode(document.getElementById("boxqrimg"), options);
+    </script>
+ 
+    <p class="uk-text-center uk-text-small">扫码向@{{ .PageUser.Name }}提问<br>谁都可以以匿名的形式提问</p>
     {{ end }}
     {{template "base/alert" .}}
     {{template "question/new-question-template" .}}

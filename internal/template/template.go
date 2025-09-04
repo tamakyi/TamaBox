@@ -14,7 +14,7 @@ import (
 
 	"gorm.io/datatypes"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
 var (
@@ -42,6 +42,11 @@ func FuncMap() []template.FuncMap {
 				format = replacer.Replace(format)
 				return t.Format(format)
 			},
+			"QuestionFormat": func(input string) template.HTML {
+				input = html.EscapeString(input)
+				input = strings.ReplaceAll(input, "\n", "</br>")
+				return template.HTML(input)
+			},
 			"AnswerFormat": func(input string) template.HTML {
 				input = html.EscapeString(input)
 				input = strings.ReplaceAll(input, "\n", "</br>")
@@ -63,6 +68,7 @@ func FuncMap() []template.FuncMap {
 			"ImageBucketCDNHost": func() string {
 				return conf.Upload.ImageBucketCDNHost
 			},
+			"Safe": Safe,
 		}}
 	})
 	return funcMap

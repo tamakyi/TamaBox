@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{{ .Title }}</title>
+  <link rel="stylesheet" href="https://r2.337845818.best/tamabox/cdn/expire-1-y/uikit/3.3.3/css/modify-black-font/uikit.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.snrat.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css"/>
+  <script src="https://cdnjs.snrat.com/ajax/libs/uikit/3.3.3/js/uikit.min.js"></script>
+  <script src="https://cdnjs.snrat.com/ajax/libs/uikit/3.3.3/js/uikit-icons.min.js"></script>
+  <script src="https://cdnjs.snrat.com/ajax/libs/dayjs/1.10.8/dayjs.min.js"></script>
+  <script defer src="https://r2.337845818.best/tamabox/cdn/alpinejs/3.11.1/cdn.min.js"/></script>
+  <script type="text/javascript" src="https://r2.337845818.best/tamabox/cdn/jquery-3.7.1.min.js"></script>
+  <script src="https://r2.337845818.best/tamabox/cdn/time.box.js"/></script>
+  <script src="https://r2.337845818.best/tamabox/cdn/busuanzi.pure.mini.js"/></script>
+  {{ if .RecaptchaTurnstileStyle }}
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha" async defer></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.g-recaptcha').forEach(item => {
+              item.disabled = true;
+          });
+      });
+
+      function onSubmit() {
+          document.querySelectorAll('.g-recaptcha').forEach(item => {
+              item.disabled = false;
+          })
+      }</script>
+  {{ else }}
+  <script src="{{.RecaptchaDomain}}/recaptcha/api.js" async defer></script>
+  <script>function onSubmit() {document.getElementById('form').submit();}</script>
+  {{ end }}
+  {{ if ne SentryDSN "" }}
+  <script
+          src="https://browser.sentry-cdn.com/7.37.2/bundle.tracing.replay.min.js"
+          integrity="sha384-o0mU2P+zsvXua0Y6f/J55PKWZt3sZCv3qDqJe6J5lZklyIQkpgjBVqNnPWYWqGhf"
+          crossorigin="anonymous"
+  ></script>
+  <script>
+      Sentry.init({
+          dsn: "{{ SentryDSN }}",
+          integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+          tracesSampleRate: 1.0,
+          replaysSessionSampleRate: 0.1,
+          replaysOnErrorSampleRate: 1.0,
+      });
+  </script>
+  {{ end }}
+  <style>
+      .grecaptcha-badge {visibility: hidden;}
+  </style>
+
+  <meta itemprop="image" content="https://r2.337845818.best/tamabox/tamabox_low.png"/>
+  <meta name="msapplication-TileImage" content="https://r2.337845818.best/tamabox/tamabox_low.png"/>
+  <link rel="shortcut icon" href="https://r2.337845818.best/tamabox/tamabox_low.png" />
+  <link rel="apple-touch-icon" href="https://r2.337845818.best/tamabox/tamabox_low.png"/>
+  <link rel="icon" sizes="192x192" href="https://r2.337845818.best/tamabox/tamabox_low.png">
+<!-- Google and Bing -->
+  <meta name="google-site-verification" content="fEPwRRJfiGsgwc5SINBQwZhPK8F0cwRaOvRx0YRurI4" />
+  <meta name="msvalidate.01" content="2F185E8E63C93635F50B3574F3B31E42" />
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://data.tama.guru/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '10']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+</head>
+<body>
+<nav class="uk-navbar-container uk-margin" uk-navbar>
+  <div class="uk-navbar-center">
+    <div class="uk-navbar-center-left">
+      <div>
+        {{ if .IsLogged }}
+        <ul class="uk-navbar-nav">
+          <li><a href="/_/{{ .LoggedUser.Domain }}">{{ .LoggedUserName }}</a></li>
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+    <a class="uk-navbar-item uk-logo" href="/">狼的提问箱</a>
+    <div class="uk-navbar-center-right">
+      <div>
+        {{ if .IsLogged }}
+        <ul class="uk-navbar-nav">
+          <li><a href="/user/questions">提问</a></li>
+        </ul>
+        <ul class="uk-navbar-nav">
+          <li><a href="/user/profile">设置</a></li>
+        </ul>
+        {{ else}}
+        <ul class="uk-navbar-nav">
+          <li><a href="/register">注册</a></li>
+        </ul>
+        <ul class="uk-navbar-nav">
+          <li><a href="/login">登录</a></li>
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</nav>
+{{ if .IsPixel }}
+<div>
+{{ else }}
+<div class="uk-container uk-container-xsmall">
+{{ end }}

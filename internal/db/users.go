@@ -8,10 +8,11 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
+	"github.com/rs/xid"
 	"github.com/wuhan005/gadget"
 	"gorm.io/gorm"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/conf"
 )
 
 var Users UsersStore
@@ -24,7 +25,7 @@ type UsersStore interface {
 	GetByEmail(ctx context.Context, email string) (*User, error)
 	GetByDomain(ctx context.Context, domain string) (*User, error)
 	Update(ctx context.Context, id uint, opts UpdateUserOptions) error
-	UpdateHarassmentSetting(ctx context.Context, id uint, typ HarassmentSettingType) error
+	UpdateHarassmentSetting(ctx context.Context, id uint, options HarassmentSettingOptions) error
 	Authenticate(ctx context.Context, email, password string) (*User, error)
 	ChangePassword(ctx context.Context, id uint, oldPassword, newPassword string) error
 	UpdatePassword(ctx context.Context, id uint, newPassword string) error
@@ -40,17 +41,37 @@ type users struct {
 }
 
 type User struct {
-	gorm.Model        `json:"-"`
-	Name              string                `json:"name"`
-	Password          string                `json:"-"`
-	Email             string                `json:"email"`
-	Avatar            string                `json:"avatar"`
-	Domain            string                `json:"domain"`
-	Background        string                `json:"background"`
-	Intro             string                `json:"intro"`
-	Notify            NotifyType            `json:"notify"`
-	HarassmentSetting HarassmentSettingType `json:"harassment_setting"`
+	gorm.Model           `json:"-"`
+	Name                 string                `json:"name"`
+	UID                  string                `json:"-"`
+	Password             string                `json:"-"`
+	Email                string                `json:"email"`
+	Avatar               string                `json:"avatar"`
+	Domain               string                `json:"domain"`
+	Background           string                `json:"background"`
+	Intro                string                `json:"intro"`
+    Introcolor           string                `json:"introcolor"`
+    Usernamecolor        string                `json:"usernamecolor"`
+	Qrcodebackcolor      string                `json:"qrcodebackcolor"`
+	Qrcodecolor          string                `json:"qrcodecolor"`
+	BackgroundImage      string                `json:"backgroundimage"`
+	Dotscale             string                `json:"dotscale"`
+	Acfunlink            string                `json:"acfunlink`
+	Bililink             string                `json:"bililink`
+	Weibolink            string                `json:"weibolink`
+	Bloglink             string                `json:"bloglink`
+	Qrcodepdpcolor       string                `json:"qrcodepdpcolor"`
+	Backgroundimagealpha string                `json:"Backgroundimagealpha"`
+	Notify               NotifyType            `json:"notify"`
+	HarassmentSetting    HarassmentSettingType `json:"harassment_setting"`
+	BlockWords           string                `json:"-"`
 }
+
+func (u *User) BeforeCreate(_ *gorm.DB) error {
+	u.UID = xid.New().String()
+	return nil
+}
+
 
 type NotifyType string
 
@@ -76,13 +97,25 @@ func (u *User) Authenticate(password string) bool {
 }
 
 type CreateUserOptions struct {
-	Name       string
-	Password   string
-	Email      string
-	Avatar     string
-	Domain     string
-	Background string
-	Intro      string
+	Name                 string
+	Password             string
+	Email                string
+	Avatar               string
+	Domain               string
+	Background           string
+	Intro                string
+	Dotscale             string
+	Qrcodebackcolor      string
+	Qrcodecolor          string
+	Qrcodepdpcolor       string
+	BackgroundImage      string
+	Backgroundimagealpha string
+    Usernamecolor        string
+    Introcolor           string
+    Acfunlink            string
+    Bililink             string
+    Weibolink            string
+    Bloglink             string
 }
 
 var (
@@ -98,14 +131,26 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 	}
 
 	newUser := &User{
-		Name:       opts.Name,
-		Password:   opts.Password,
-		Email:      opts.Email,
-		Avatar:     opts.Avatar,
-		Domain:     opts.Domain,
-		Background: opts.Background,
-		Intro:      opts.Intro,
-		Notify:     NotifyTypeEmail,
+		Name:                 opts.Name,
+		Password:             opts.Password,
+		Email:                opts.Email,
+		Avatar:               opts.Avatar,
+		Domain:               opts.Domain,
+		Background:           opts.Background,
+		Intro:                opts.Intro,
+		Qrcodebackcolor:      opts.Qrcodebackcolor,
+		Qrcodecolor:          opts.Qrcodecolor,
+		Dotscale:             opts.Dotscale,
+		BackgroundImage:      opts.BackgroundImage,
+		Backgroundimagealpha: opts.Backgroundimagealpha,
+		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
+		Notify:               NotifyTypeEmail,
+        Usernamecolor:        opts.Usernamecolor,
+        Introcolor:           opts.Introcolor,
+        Acfunlink:            opts.Acfunlink,
+        Bililink:             opts.Bililink,
+        Weibolink:            opts.Weibolink,
+        Bloglink:             opts.Bloglink,
 	}
 	newUser.EncodePassword()
 
@@ -139,11 +184,23 @@ func (db *users) GetByDomain(ctx context.Context, domain string) (*User, error) 
 }
 
 type UpdateUserOptions struct {
-	Name       string
-	Avatar     string
-	Background string
-	Intro      string
-	Notify     NotifyType
+	Name                 string
+	Avatar               string
+	Background           string
+	Intro                string
+	Qrcodebackcolor      string
+	Qrcodecolor          string
+	Dotscale             string
+	BackgroundImage      string
+	Backgroundimagealpha string
+	Qrcodepdpcolor       string
+    Usernamecolor        string
+    Introcolor           string
+    Acfunlink            string
+    Bililink             string
+    Weibolink            string
+    Bloglink             string
+	Notify               NotifyType
 }
 
 func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) error {
@@ -159,26 +216,46 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 	}
 
 	if err := db.WithContext(ctx).Where("id = ?", id).Updates(&User{
-		Name:       opts.Name,
-		Avatar:     opts.Avatar,
-		Background: opts.Background,
-		Intro:      opts.Intro,
-		Notify:     opts.Notify,
+		Name:                 opts.Name,
+		Avatar:               opts.Avatar,
+		Background:           opts.Background,
+		Intro:                opts.Intro,
+		Qrcodebackcolor:      opts.Qrcodebackcolor,
+		Qrcodecolor:          opts.Qrcodecolor,
+		Dotscale:             opts.Dotscale,
+		BackgroundImage:      opts.BackgroundImage,
+		Backgroundimagealpha: opts.Backgroundimagealpha,
+		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
+        Usernamecolor:        opts.Usernamecolor,
+        Introcolor:           opts.Introcolor,
+        Acfunlink:            opts.Acfunlink,
+        Bililink:             opts.Bililink,
+        Weibolink:            opts.Weibolink,
+        Bloglink:             opts.Bloglink,
+		Notify:               opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
 	}
 	return nil
 }
 
-func (db *users) UpdateHarassmentSetting(ctx context.Context, id uint, typ HarassmentSettingType) error {
+type HarassmentSettingOptions struct {
+	Type       HarassmentSettingType
+	BlockWords string
+}
+
+func (db *users) UpdateHarassmentSetting(ctx context.Context, id uint, options HarassmentSettingOptions) error {
+	typ := options.Type
+
 	switch typ {
 	case HarassmentSettingNone, HarassmentSettingTypeRegisterOnly:
 	default:
 		return errors.Errorf("unexpected harassment setting type: %q", typ)
 	}
 
-	if err := db.WithContext(ctx).Where("id = ?", id).Updates(&User{
-		HarassmentSetting: typ,
+	if err := db.WithContext(ctx).Model(&User{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"HarassmentSetting": typ,
+		"BlockWords":        options.BlockWords,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
 	}

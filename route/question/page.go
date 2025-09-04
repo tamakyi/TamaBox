@@ -10,6 +10,7 @@ import (
 	"io"
 	"mime/multipart"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -21,13 +22,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/wuhan005/govalid"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/dbutil"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	"github.com/NekoWheel/NekoBox/internal/mail"
-	"github.com/NekoWheel/NekoBox/internal/security/censor"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/dbutil"
+	"github.com/tamakyi/TamaBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/mail"
+	"github.com/tamakyi/TamaBox/internal/security/censor"
 )
 
 func Pager(ctx context.Context) {
@@ -68,8 +69,9 @@ func Pager(ctx context.Context) {
 		return
 	}
 
-	ctx.SetTitle(fmt.Sprintf("%s的提问箱 - NekoBox", pageUser.Name))
+	ctx.SetTitle(fmt.Sprintf("%s的提问箱 - 狼的提问箱", pageUser.Name))
 
+    ctx.Data["IsUserPage"] = true
 	ctx.Data["IsOwnPage"] = ctx.IsLogged && ctx.User.ID == pageUser.ID
 	ctx.Data["PageUser"] = pageUser
 	ctx.Data["PageQuestions"] = pageQuestions
@@ -155,7 +157,20 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	}
 
 	content := f.Content
+	isPrivate := f.IsPrivate != ""
 
+	// 🚨 User's block words check.
+	if len(pageUser.BlockWords) > 0 {
+		blockWords := strings.Split(pageUser.BlockWords, ",")
+		for _, word := range blockWords {
+			if strings.Contains(content, word) {
+				ctx.SetError(errors.New("提问内容中包含了提问箱主人设置的屏蔽词，发送失败"), f)
+				ctx.Success("question/list")
+				return
+			}
+		}
+	}
+	
 	// 🚨 Content security check.
 	censorResponse, err := censor.Text(ctx.Request().Context(), content)
 	if err != nil {
@@ -190,6 +205,7 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 		Content:           content,
 		ReceiveReplyEmail: receiveReplyEmail,
 		AskerUserID:       askerUserID,
+		IsPrivate:         isPrivate,
 	})
 	if err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to create new question")
@@ -229,14 +245,21 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	go func() {
 		if pageUser.Notify == db.NotifyTypeEmail {
 			// Send notification to page user.
-			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
+//			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
+			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to user")
+			}
+			if err := mail.SendNewQuestionMailToUser(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
+				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to questioner")
 			}
 		}
 	}()
 
-	ctx.SetSuccessFlash("发送问题成功！")
-	ctx.Redirect("/_/" + pageUser.Domain)
+	questionPrivateURL := fmt.Sprintf("/_/%s/%d?t=%s", pageUser.Domain, question.ID, question.Token)
+	questionPrivateAbsURL := fmt.Sprintf("%s%s", strings.TrimRight(conf.App.ExternalURL, "/"), questionPrivateURL)
+
+	ctx.SetSuccessFlash("发送问题成功！以下是提问私密链接，使用该链接可以随时查看你的提问。如果你选择接收回复通知，该连接会发送到你的邮箱。", fmt.Sprintf(`<a href="%s" target="_blank">%[1]s</a>`, questionPrivateAbsURL))
+	ctx.Redirect(questionPrivateURL)
 }
 
 type uploadImageOptions struct {

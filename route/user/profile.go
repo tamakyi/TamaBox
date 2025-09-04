@@ -13,10 +13,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/xuri/excelize/v2"
 
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/form"
-	"github.com/NekoWheel/NekoBox/internal/storage"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/storage"
 )
 
 func Profile(ctx context.Context) {
@@ -61,6 +61,20 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 		}
 	}
 
+	var BackgroundImageURL string
+	backgroundimageFile, backgroundimageFileHeader, err := ctx.Request().FormFile("backgroundimage")
+	if err == nil {
+		if backgroundimageFileHeader.Size > storage.MaxBackgroundSize {
+			ctx.SetError(errors.New("背景图文件太大，最大支持 2MB"))
+			ctx.Success("user/profile")
+			return
+		}
+		BackgroundImageURL, err = storage.UploadPictureToS3(backgroundimageFile, backgroundimageFileHeader)
+		if err != nil {
+			logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to upload QRbackgroundImage")
+		}
+	}
+
 	if f.NewPassword != "" {
 		if err := db.Users.ChangePassword(ctx.Request().Context(), ctx.User.ID, f.OldPassword, f.NewPassword); err != nil {
 			if errors.Is(err, db.ErrBadCredential) {
@@ -82,11 +96,23 @@ func UpdateProfile(ctx context.Context, f form.UpdateProfile) {
 	}
 
 	if err := db.Users.Update(ctx.Request().Context(), ctx.User.ID, db.UpdateUserOptions{
-		Name:       f.Name,
-		Avatar:     avatarURL,
-		Background: backgroundURL,
-		Intro:      f.Intro,
-		Notify:     notify,
+		Name:                 f.Name,
+		Avatar:               avatarURL,
+		Background:           backgroundURL,
+		Intro:                f.Intro,
+		Qrcodebackcolor:      f.Qrcodebackcolor,
+		Qrcodecolor:          f.Qrcodecolor,
+		Dotscale:             f.Dotscale,
+		BackgroundImage:      BackgroundImageURL,
+		Backgroundimagealpha: f.Backgroundimagealpha,
+        Usernamecolor:        f.Usernamecolor,
+        Introcolor:           f.Introcolor,
+		Qrcodepdpcolor:       f.Qrcodepdpcolor,
+		Acfunlink:            f.Acfunlink,
+		Bililink:             f.Bililink,
+		Weibolink:            f.Weibolink,
+		Bloglink:             f.Bloglink,
+		Notify:               notify,
 	}); err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to update user profile")
 		ctx.SetInternalErrorFlash()
@@ -127,7 +153,7 @@ func ExportProfile(ctx context.Context) {
 		return
 	}
 
-	fileName := fmt.Sprintf("NekoBox账号信息导出-%s-%s.xlsx", user.Domain, time.Now().Format("20060102150405"))
+	fileName := fmt.Sprintf("狼的提问箱账号信息导出-%s-%s.xlsx", user.Domain, time.Now().Format("20060102150405"))
 	ctx.ResponseWriter().Header().Set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 	ctx.ResponseWriter().Header().Set("Content-Disposition", "attachment; filename*=UTF-8''"+url.QueryEscape(fileName))
 
@@ -167,11 +193,21 @@ func createExportExcelFile(user *db.User, questions []*db.Question) (*excelize.F
 	}
 	// Set personal information sheet.
 	personalData := [][]interface{}{
-		{"NekoBox 账号信息导出", fmt.Sprintf("导出时间 %s", time.Now().Format("2006-01-02 15:04:05"))},
+		{"狼的提问箱 账号信息导出", fmt.Sprintf("导出时间 %s", time.Now().Format("2006-01-02 15:04:05"))},
 		{"电子邮箱", user.Email},
 		{"昵称", user.Name},
 		{"个性域名", user.Domain},
+		{"AcFun主页", user.Acfunlink},
+		{"Bili主页", user.Bililink},
+		{"微博主页", user.Weibolink},
+		{"个人博客主页", user.Bloglink},
 		{"介绍", user.Intro},
+		{"二维码背景色", user.Qrcodebackcolor},
+		{"二维码前景色", user.Qrcodecolor},
+		{"二维码点大小", user.Dotscale},
+        {"昵称颜色", user.Usernamecolor},
+        {"介绍颜色", user.Introcolor},
+		{"二维码探测图形颜色", user.Qrcodepdpcolor},
 		{"头像 URL", user.Avatar},
 		{"背景图 URL", user.Background},
 		{"注册时间", user.CreatedAt},
@@ -222,6 +258,6 @@ func DeactivateProfileAction(ctx context.Context) {
 		return
 	}
 	ctx.Session.Flush()
-	ctx.SetSuccessFlash("您的账号已停用，感谢您使用 NekoBox。期待未来还能再见 👋🏻")
+	ctx.SetSuccessFlash("您的账号已停用，感谢您使用 狼的提问箱。期待未来还能再见 👋🏻")
 	ctx.Redirect("/login")
 }

@@ -9,10 +9,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/NekoWheel/NekoBox/internal/conf"
-	"github.com/NekoWheel/NekoBox/internal/context"
-	"github.com/NekoWheel/NekoBox/internal/db"
-	"github.com/NekoWheel/NekoBox/internal/form"
+	"github.com/tamakyi/TamaBox/internal/conf"
+	"github.com/tamakyi/TamaBox/internal/context"
+	"github.com/tamakyi/TamaBox/internal/db"
+	"github.com/tamakyi/TamaBox/internal/form"
 )
 
 func Register(ctx context.Context) {
@@ -40,13 +40,25 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 	}
 
 	if err := db.Users.Create(ctx.Request().Context(), db.CreateUserOptions{
-		Name:       f.Name,
-		Password:   f.Password,
-		Email:      f.Email,
-		Avatar:     conf.Upload.DefaultAvatarURL,
-		Domain:     f.Domain,
-		Background: conf.Upload.DefaultBackground,
-		Intro:      "问你想问的",
+		Name:                 f.Name,
+		Password:             f.Password,
+		Email:                f.Email,
+		Avatar:               conf.Upload.DefaultAvatarURL,
+		Domain:               f.Domain,
+		Background:           conf.Upload.DefaultBackground,
+		Intro:                "问你想问的",
+		Qrcodebackcolor:      "#FFFFFF",
+		Qrcodecolor:          "#696969",
+        Usernamecolor:        "#000000",
+        Introcolor:           "#000000",
+		Dotscale:             "0.35",
+		BackgroundImage:      conf.Upload.DefaultBackgroundImageURL,
+		Backgroundimagealpha: "0.8",
+		Qrcodepdpcolor:       "#696969",
+		Acfunlink:             "none",
+		Bililink:              "none",
+		Weibolink:             "none",
+		Bloglink:              "box.tama.guru",
 	}); err != nil {
 		switch {
 		case errors.Is(err, db.ErrUserNotExists),
@@ -64,6 +76,6 @@ func RegisterAction(ctx context.Context, f form.Register, recaptcha recaptcha.Re
 		return
 	}
 
-	ctx.SetSuccessFlash("注册成功，欢迎来到 NekoBox！")
+	ctx.SetSuccessFlash("注册成功，欢迎来到 狼的提问箱！")
 	ctx.Redirect("/login")
 }
