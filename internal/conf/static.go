@@ -23,6 +23,7 @@ var (
 		AliyunAccessKey       string `ini:"aliyun_access_key"`
 		AliyunAccessKeySecret string `ini:"aliyun_access_key_secret"`
 		SentryDSN             string `ini:"sentry_dsn"`
+		MaintenanceMode       bool   `ini:"maintenance_mode"`
 	}
 
 	Security struct {
@@ -37,10 +38,13 @@ var (
 
 	Database struct {
 		DSN      string
+		Type     string `ini:"type"`
 		User     string `ini:"user"`
 		Password string `ini:"password"`
-		Address  string `ini:"address"`
+		Host     string `ini:"host"`
+		Port     uint   `ini:"port"`
 		Name     string `ini:"name"`
+		Schema   string `ini:"schema"` // for postgres
 	}
 
 	Redis struct {

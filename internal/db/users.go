@@ -8,7 +8,6 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"github.com/rs/xid"
 	"github.com/wuhan005/gadget"
 	"gorm.io/gorm"
 
@@ -42,16 +41,16 @@ type users struct {
 
 type User struct {
 	gorm.Model           `json:"-"`
-	Name                 string                `json:"name"`
 	UID                  string                `json:"-"`
+	Name                 string                `json:"name"`
 	Password             string                `json:"-"`
 	Email                string                `json:"email"`
 	Avatar               string                `json:"avatar"`
 	Domain               string                `json:"domain"`
 	Background           string                `json:"background"`
 	Intro                string                `json:"intro"`
-    Introcolor           string                `json:"introcolor"`
-    Usernamecolor        string                `json:"usernamecolor"`
+	Introcolor           string                `json:"introcolor"`
+	Usernamecolor        string                `json:"usernamecolor"`
 	Qrcodebackcolor      string                `json:"qrcodebackcolor"`
 	Qrcodecolor          string                `json:"qrcodecolor"`
 	BackgroundImage      string                `json:"backgroundimage"`
@@ -71,7 +70,6 @@ func (u *User) BeforeCreate(_ *gorm.DB) error {
 	u.UID = xid.New().String()
 	return nil
 }
-
 
 type NotifyType string
 
@@ -110,12 +108,12 @@ type CreateUserOptions struct {
 	Qrcodepdpcolor       string
 	BackgroundImage      string
 	Backgroundimagealpha string
-    Usernamecolor        string
-    Introcolor           string
-    Acfunlink            string
-    Bililink             string
-    Weibolink            string
-    Bloglink             string
+	Usernamecolor        string
+	Introcolor           string
+	Acfunlink            string
+	Bililink             string
+	Weibolink            string
+	Bloglink             string
 }
 
 var (
@@ -145,12 +143,12 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
 		Notify:               NotifyTypeEmail,
-        Usernamecolor:        opts.Usernamecolor,
-        Introcolor:           opts.Introcolor,
-        Acfunlink:            opts.Acfunlink,
-        Bililink:             opts.Bililink,
-        Weibolink:            opts.Weibolink,
-        Bloglink:             opts.Bloglink,
+		Usernamecolor:        opts.Usernamecolor,
+		Introcolor:           opts.Introcolor,
+		Acfunlink:            opts.Acfunlink,
+		Bililink:             opts.Bililink,
+		Weibolink:            opts.Weibolink,
+		Bloglink:             opts.Bloglink,
 	}
 	newUser.EncodePassword()
 
@@ -194,12 +192,12 @@ type UpdateUserOptions struct {
 	BackgroundImage      string
 	Backgroundimagealpha string
 	Qrcodepdpcolor       string
-    Usernamecolor        string
-    Introcolor           string
-    Acfunlink            string
-    Bililink             string
-    Weibolink            string
-    Bloglink             string
+	Usernamecolor        string
+	Introcolor           string
+	Acfunlink            string
+	Bililink             string
+	Weibolink            string
+	Bloglink             string
 	Notify               NotifyType
 }
 
@@ -226,12 +224,12 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		BackgroundImage:      opts.BackgroundImage,
 		Backgroundimagealpha: opts.Backgroundimagealpha,
 		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
-        Usernamecolor:        opts.Usernamecolor,
-        Introcolor:           opts.Introcolor,
-        Acfunlink:            opts.Acfunlink,
-        Bililink:             opts.Bililink,
-        Weibolink:            opts.Weibolink,
-        Bloglink:             opts.Bloglink,
+		Usernamecolor:        opts.Usernamecolor,
+		Introcolor:           opts.Introcolor,
+		Acfunlink:            opts.Acfunlink,
+		Bililink:             opts.Bililink,
+		Weibolink:            opts.Weibolink,
+		Bloglink:             opts.Bloglink,
 		Notify:               opts.Notify,
 	}).Error; err != nil {
 		return errors.Wrap(err, "update user")
