@@ -72,8 +72,8 @@
           <div class="head">谢谢老板 Thanks♪(･ω･)ﾉ</div>
           <div class="qrcode">
             <div class="qrcode-li alipay"><img
-                    src="https://unpkg.com/@e99p1ant/public@1.0.0/images/alipay_qrcode.jpg">
-              <noscript><img src="https://unpkg.com/@e99p1ant/public@1.0.0/images/alipay_qrcode.jpg"/></noscript>
+                    src="https://cdn.github.red/wp-content/uploads/2021/02/alipay_qrcode.jpg">
+              <noscript><img src="https://cdn.github.red/wp-content/uploads/2021/02/alipay_qrcode.jpg"/></noscript>
             </div>
           </div>
           <ul class="platform">
@@ -95,7 +95,7 @@
     <tbody x-data="{ s: '' }" x-init="
     s = await (async () => {
       let html = '';
-      let items = (await(await fetch('https://pb.n3ko.cc/api/collections/nekobox_sponsors/records?perPage=500&sort=-date')).json()).items;
+      let items = (await(await fetch('https://pb.app.apicon.cn/api/collections/nekobox_sponsors/records?perPage=500&sort=-date')).json()).items;
       items.forEach(item => {
         html += `<tr class=uk-text-meta><td>${item.date.slice(0,10)}</td><td>${item.desc}</td><td>¥ ${item.price.toFixed(2)}</td></tr>`;
       })

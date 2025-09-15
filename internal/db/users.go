@@ -8,6 +8,7 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
+        "github.com/rs/xid"
 	"github.com/wuhan005/gadget"
 	"gorm.io/gorm"
 

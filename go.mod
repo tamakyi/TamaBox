@@ -44,7 +44,6 @@ require (
 )
 
 require (
-	github.com/NekoWheel/NekoBox v0.0.0-20250830085850-a587c9f0a46f // indirect
 	github.com/alecthomas/participle/v2 v2.0.0-beta.5 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.4 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.14.10 // indirect
