@@ -37,14 +37,15 @@ var (
 	}
 
 	Database struct {
-		DSN      string
+		DSN string
+
 		Type     string `ini:"type"`
 		User     string `ini:"user"`
 		Password string `ini:"password"`
 		Host     string `ini:"host"`
 		Port     uint   `ini:"port"`
 		Name     string `ini:"name"`
-		Schema   string `ini:"schema"` // for postgres
+		Schema   string `ini:"schema"`
 	}
 
 	Redis struct {
@@ -64,19 +65,19 @@ var (
 	}
 
 	Upload struct {
-		DefaultAvatarURL    string `ini:"default_avatar"`
-		DefaultBackground   string `ini:"default_background"`
-		DefaultBackgroundImageURL    string `ini:"default_qrbackgroundimage"`
-		AliyunEndpoint      string `ini:"aliyun_endpoint"`
-		AliyunAccessID      string `ini:"aliyun_access_id"`
-		AliyunAccessSecret  string `ini:"aliyun_access_secret"`
-		AliyunBucket        string `ini:"aliyun_bucket"`
-		AliyunBucketCDNHost string `ini:"aliyun_bucket_cdn_host"`
-		ImageEndpoint       string `ini:"image_endpoint"`
-		ImageAccessID       string `ini:"image_access_id"`
-		ImageAccessSecret   string `ini:"image_access_secret"`
-		ImageBucket         string `ini:"image_bucket"`
-		ImageBucketCDNHost  string `ini:"image_bucket_cdn_host"`
+		DefaultAvatarURL          string `ini:"default_avatar"`
+		DefaultBackground         string `ini:"default_background"`
+		DefaultBackgroundImageURL string `ini:"default_qrbackgroundimage"`
+		AliyunEndpoint            string `ini:"aliyun_endpoint"`
+		AliyunAccessID            string `ini:"aliyun_access_id"`
+		AliyunAccessSecret        string `ini:"aliyun_access_secret"`
+		AliyunBucket              string `ini:"aliyun_bucket"`
+		AliyunBucketCDNHost       string `ini:"aliyun_bucket_cdn_host"`
+		ImageEndpoint             string `ini:"image_endpoint"`
+		ImageAccessID             string `ini:"image_access_id"`
+		ImageAccessSecret         string `ini:"image_access_secret"`
+		ImageBucket               string `ini:"image_bucket"`
+		ImageBucketCDNHost        string `ini:"image_bucket_cdn_host"`
 	}
 
 	Mail struct {

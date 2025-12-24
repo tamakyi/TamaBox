@@ -18,7 +18,7 @@ import (
 )
 
 func Questioner(ctx context.Context, pageUser *db.User) {
-    token := ctx.Query("t")
+	token := ctx.Query("t")
 	questionID := uint(ctx.ParamInt("questionID"))
 	question, err := db.Questions.GetByID(ctx.Request().Context(), questionID)
 	if err != nil {
@@ -56,7 +56,7 @@ func Questioner(ctx context.Context, pageUser *db.User) {
 
 	// The page's owner or the question's token can have the permission to delete the question.
 	// Inject the permission into the context.
-    canDelete := ctx.IsLogged && ctx.User.ID == pageUser.ID
+	canDelete := ctx.IsLogged && ctx.User.ID == pageUser.ID
 	ctx.Map(canDelete)
 	ctx.Data["CanDelete"] = canDelete
 
@@ -129,7 +129,7 @@ func PublishAnswer(ctx context.Context, pageUser *db.User, question *db.Question
 	go func() {
 		if question.ReceiveReplyEmail != "" && question.Answer == "" { // We only send the email when the question has not been answered.
 			// Send notification to questioner.
-//			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer); err != nil {
+			//			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer); err != nil {
 			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send receive reply mail to questioner")
 			}

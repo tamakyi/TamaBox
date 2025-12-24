@@ -1,12 +1,12 @@
 {{template "base/header" .}}
 <div class="uk-card uk-card-default uk-card-body">
   <h1 class="uk-heading-small">狼的提问箱</h1>
-  <p style="color: red; font-weight: bold;">注意事项:<br>⭐8月14日至18日期间服务器因同IP段其他服务器架设非法服务而被防火墙连坐，目前已切换到新IP，数据未有丢失。请各位朋友珍惜服务器，不要在网上发布不适当的言论或做出一些不正确的行为，谢谢配合。<br>⭐如登陆提示SCRF Token错误，请刷新浏览器缓存（Shift+刷新)或使用隐私模式（一般是Shift+Ctrl+N）浏览。<del>这种情况一般是站长在调整后台导致的。</del><br>⭐如果提示无感验证码加载错误，请切换其他网络使用。<br>⭐本站有且仅有一个<a href="//box.tama.guru/_/tamakyi">小狼</a>，注意不要被骗。<br><br>
+  <p style="color: red; font-weight: bold;">注意事项:<br>⭐2025.12 服务整体迁移到境外并套上Cloudflare，并将在近期迁移数据到Postgresql。<br>⭐2025.11.8近期recaptcha服务因为不可抗力间歇性无法连接，登录、注册或提问可能会出现“reCaptcha不能为空的提示”，但是经过验证发现换用Turnstile会出现几秒的无法操作（症状为登录、注册、提问、回答按钮是灰色的）目前正尝试多种方法，如果近期出现服务突然下线请稍作等候.<br>⭐如登陆提示SCRF Token错误，请刷新浏览器缓存（Shift+刷新)或使用隐私模式（一般是Shift+Ctrl+N）浏览。<del>这种情况一般是站长在调整后台导致的。</del><br>⭐如果提示无感验证码加载错误，请切换其他网络使用。<br>⭐本站有且仅有一个<a href="//box.tama.guru/_/tamakyi">小狼</a>，注意不要被骗。<br><br>
   <p>⭐后续本站域名继续保留为<a href="https://box.tama.guru">https://box.tama.guru</a>，推荐国内用户使用。<br><a href="https://box.tama.guru">https://box.tama.guru</a>作为主服务站依托多个服务进行加速，<a href="https://box.337845818.best">https://box.337845818.best</a>作为备选CDN，以上域名推荐境外访问使用。<br>⭐一个无需注册即可提问的匿名提问箱。你不需要下载App，不需要绑定社交账号，甚至连邮箱都不需要是真的。<br>⭐本站在原版的基础上新增了问题页面的二维码等内容，方便箱主能够直接通过二维码分享给他人。各位用户可自行修改二维码背景图、颜色等个性化配置。<br>⭐可以到站长唯一提问提问箱链接<a href="//box.tama.guru/_/tamakyi">小狼的提问箱</a>尝试相关功能或给我提意见。<br>⭐可以加群：<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=rRy9g5XY34LIzOITGGmQHjX6BIICFpam&authKey=EjyNjp60KyG8BtKZGN8BXJaf1jl8okkCcUhVF2zAnGPRjhvuSdopnVqOSfSymnGg&noverify=0&group_code=777163254">小狼的群</a>一起水群。<br>⭐修改日志现在已经移动到<a href="https://box.tama.guru/change-logs">修改记录</a>页面。<br></p>
   <hr><p>警告：<br>⭐本站不允许垃圾信息、广告、辱骂、涉政、暴恐、色情、违禁、无意义、灌水提问的出现，如有涉证或不良言论将直接删除。</p>
   <hr>
     <div x-data="{ c: '' }" x-init="c = await (async () => {
-    let log = (await(await fetch('https://api.tama.guru/api/box-api/tamabox.importantinfomation.json')).json()).items[0];
+    let log = (await(await fetch('https://api-direct.337845818.best/api/box-api/tamabox.importantinfomation.json')).json()).items[0];
     return `<p class=uk-article-meta>重要事件 - ${new Date(log.published_at).toLocaleDateString()}</p><span class=uk-text-small>${log.content}</span>`;
   })()" x-html="c">
   </div>
@@ -14,7 +14,7 @@
 <p>提问箱信息统计:<pre style="overflow: hidden;"id="text"></pre>
 <script type="text/javascript">
     $.ajax({
-        url: "https://api.tama.guru/api/box-api/question.count.txt",
+        url: "https://api-direct.337845818.best/api/box-api/question.count.txt",
         type: "get",
         dataType: "text",
         success: function (data) {
@@ -32,7 +32,7 @@
      const waline = Waline.init({
          el: '#waline',
          //后端服务器地址
-         serverURL: 'https://artalk.tama.guru',
+         serverURL: 'https://waline.337845818.best/',
          path: window.location.href,
              // 中文默认
          locale: {

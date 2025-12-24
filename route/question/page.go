@@ -71,7 +71,7 @@ func Pager(ctx context.Context) {
 
 	ctx.SetTitle(fmt.Sprintf("%s的提问箱 - 狼的提问箱", pageUser.Name))
 
-    ctx.Data["IsUserPage"] = true
+	ctx.Data["IsUserPage"] = true
 	ctx.Data["IsOwnPage"] = ctx.IsLogged && ctx.User.ID == pageUser.ID
 	ctx.Data["PageUser"] = pageUser
 	ctx.Data["PageQuestions"] = pageQuestions
@@ -170,7 +170,7 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 			}
 		}
 	}
-	
+
 	// 🚨 Content security check.
 	censorResponse, err := censor.Text(ctx.Request().Context(), content)
 	if err != nil {
@@ -245,7 +245,7 @@ func New(ctx context.Context, f form.NewQuestion, pageUser *db.User, recaptcha r
 	go func() {
 		if pageUser.Notify == db.NotifyTypeEmail {
 			// Send notification to page user.
-//			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
+			//			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content); err != nil {
 			if err := mail.SendNewQuestionMail(pageUser.Email, pageUser.Domain, question.ID, question.Content, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send new question mail to user")
 			}

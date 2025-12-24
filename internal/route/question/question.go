@@ -30,13 +30,13 @@ func Questioner(ctx context.Context, pageUser *db.User) {
 	}
 	ctx.Data["Question"] = question
 
-	askUploadImages, err := db.UploadImgaes.GetByTypeQuestionID(ctx.Request().Context(), db.UploadImageQuestionTypeAsk, questionID)
+	askUploadImages, err := db.UploadImages.GetByTypeQuestionID(ctx.Request().Context(), db.UploadImageQuestionTypeAsk, questionID)
 	if err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to get ask upload images")
 	}
 	ctx.Data["AskUploadImages"] = askUploadImages
 
-	answerUploadImages, err := db.UploadImgaes.GetByTypeQuestionID(ctx.Request().Context(), db.UploadImageQuestionTypeAnswer, questionID)
+	answerUploadImages, err := db.UploadImages.GetByTypeQuestionID(ctx.Request().Context(), db.UploadImageQuestionTypeAnswer, questionID)
 	if err != nil {
 		logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to get answer upload images")
 	}
@@ -125,7 +125,7 @@ func PublishAnswer(ctx context.Context, pageUser *db.User, question *db.Question
 	go func() {
 		if question.ReceiveReplyEmail != "" && question.Answer == "" { // We only send the email when the question has not been answered.
 			// Send notification to questioner.
-			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer); err != nil {
+			if err := mail.SendNewAnswerMail(question.ReceiveReplyEmail, pageUser.Domain, question.ID, question.Content, f.Answer, question.Token); err != nil {
 				logrus.WithContext(ctx.Request().Context()).WithError(err).Error("Failed to send receive reply mail to questioner")
 			}
 		}

@@ -22,8 +22,12 @@ func runUid(ctx *cli.Context) error {
 		return errors.Wrap(err, "load configuration")
 	}
 
-	dbType := "mysql"
-	conf.Database.DSN = conf.MySQLDsn()
+	dbType := conf.Database.Type // 从配置读取类型（postgres）
+	if dbType == "postgres" {
+		conf.Database.DSN = conf.PostgresDsn() // 使用 PostgreSQL 的 DSN 生成函数
+	} else {
+		conf.Database.DSN = conf.MySQLDsn()
+	}
 
 	database, err := db.Init(dbType, conf.Database.DSN)
 	if err != nil {

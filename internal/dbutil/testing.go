@@ -50,7 +50,7 @@ func NewTestDB(t *testing.T, migrationTables ...interface{}) (testDB *gorm.DB, c
 
 	ctx := context.Background()
 	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
-	dbname := "nekobox-test-" + strconv.FormatUint(rng.Uint64(), 10)
+	dbname := "tamabox-test-" + strconv.FormatUint(rng.Uint64(), 10)
 
 	err = db.WithContext(ctx).Exec(`CREATE DATABASE ` + QuoteIdentifier(dbType, dbname)).Error
 	if err != nil {
