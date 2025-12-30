@@ -21,8 +21,8 @@ func main() {
 	app.Commands = []*cli.Command{
 		cmd.Web,
 		cmd.Censor,
+		cmd.Uid,
 	}
-
 	if err := app.Run(os.Args); err != nil {
 		logrus.WithError(err).Fatal("Failed to start application")
 	}

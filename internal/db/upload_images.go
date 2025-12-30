@@ -48,8 +48,8 @@ const (
 
 type UploadImageQuestion struct {
 	Type          UploadImageQuestionType
-	UploadImageID uint
-	QuestionID    uint
+	UploadImageID uint `gorm:"primaryKey"`
+	QuestionID    uint `gorm:"primaryKey"`
 }
 
 type CreateUploadImageOptions struct {

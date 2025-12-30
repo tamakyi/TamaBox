@@ -56,10 +56,10 @@ type User struct {
 	Qrcodecolor          string                `json:"qrcodecolor"`
 	BackgroundImage      string                `json:"backgroundimage"`
 	Dotscale             string                `json:"dotscale"`
-	Acfunlink            string                `json:"acfunlink`
-	Bililink             string                `json:"bililink`
-	Weibolink            string                `json:"weibolink`
-	Bloglink             string                `json:"bloglink`
+	Acfunlink            string                `json:"acfunlink"`
+	Bililink             string                `json:"bililink"`
+	Weibolink            string                `json:"weibolink"`
+	Bloglink             string                `json:"bloglink"`
 	Qrcodepdpcolor       string                `json:"qrcodepdpcolor"`
 	Backgroundimagealpha string                `json:"Backgroundimagealpha"`
 	Notify               NotifyType            `json:"notify"`

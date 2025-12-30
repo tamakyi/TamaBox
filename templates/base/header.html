@@ -76,6 +76,21 @@
          0%, 100% { transform: translateY(0); }
          50% { transform: translateY(-5px); }
       }
+     /* 防止 UIkit Dropbar 初始闪烁 */
+     .uk-dropbar {
+       opacity: 0;
+       visibility: hidden;
+       transition: opacity 0.2s ease, visibility 0.2s ease;
+     }
+     
+     .uk-dropbar.uk-open {
+       opacity: 1;
+       visibility: visible;
+     }
+     
+     a.uk-button.uk-button-link {
+       text-transform: none;
+     }
   </style>
 
 

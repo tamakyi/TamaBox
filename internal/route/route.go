@@ -29,6 +29,7 @@ import (
 	"github.com/tamakyi/TamaBox/route/auth"
 	"github.com/tamakyi/TamaBox/route/pixel"
 	"github.com/tamakyi/TamaBox/route/question"
+	"github.com/tamakyi/TamaBox/route/service"
 	"github.com/tamakyi/TamaBox/route/user"
 	"github.com/tamakyi/TamaBox/static"
 	"github.com/tamakyi/TamaBox/templates"
@@ -142,6 +143,7 @@ func New() *flamego.Flame {
 			})
 
 			f.Any("/pixel/{**}", reqUserSignIn, pixel.Proxy)
+			f.Any("/service/{**}", service.Proxy)
 		}, context.APIEndpoint)
 	},
 		cache.Cacher(cache.Options{
