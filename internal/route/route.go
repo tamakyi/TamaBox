@@ -117,6 +117,8 @@ func New() *flamego.Flame {
 			}, question.Questioner)
 		}, question.Pager)
 
+		f.Get("/explore", user.Explore)
+
 		f.Group("/user", func() {
 			f.Get("/questions", user.QuestionList)
 
@@ -127,7 +129,7 @@ func New() *flamego.Flame {
 				f.Combo("/deactivate").Get(user.DeactivateProfile).Post(user.DeactivateProfileAction)
 			})
 			f.Post("/harassment/update", form.Bind(form.UpdateHarassment{}), user.UpdateHarassment)
-
+			f.Post("/tags/update", form.Bind(form.UpdateTags{}), user.UpdateTags)
 			f.Get("/logout", auth.Logout)
 		}, reqUserSignIn)
 

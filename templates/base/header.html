@@ -91,6 +91,21 @@
      a.uk-button.uk-button-link {
        text-transform: none;
      }
+
+     /* 移动端优化：缩小字体和间距，避免右侧空白 */
+     @media (max-width: 640px) {
+         .uk-logo {
+             font-size: 1.2rem;
+         }
+         /* 更通用的选择器，确保所有导航链接都被覆盖 */
+         .uk-navbar-nav a {
+             font-size: 0.9rem;
+             padding: 0 5px;
+         }
+         .emoji-placeholder {
+             font-size: 1.2rem;
+         }
+     }
   </style>
 
 
@@ -128,11 +143,14 @@
   <div class="uk-navbar-center">
     <div class="uk-navbar-center-left">
       <div>
-        {{ if .IsLogged }}
         <ul class="uk-navbar-nav">
+          <!-- 左侧添加探索链接，始终显示 -->
+          <li><a href="/explore">探索</a></li>
+          {{ if .IsLogged }}
+          <!-- 如果已登录，显示用户名链接 -->
           <li><a href="/_/{{ .LoggedUser.Domain }}">{{ .LoggedUserName }}</a></li>
+          {{ end }}
         </ul>
-        {{ end }}
       </div>
     </div>
     <a class="uk-navbar-item uk-logo" href="/"><span class="emoji-placeholder" aria-label="随机动物符号">狼</span>的提问箱</a>

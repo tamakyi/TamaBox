@@ -1,0 +1,119 @@
+{{template "base/header" .}}
+<style>
+  /* 文本截断样式 */
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* 卡片内头像区域 */
+  .explore-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  /* 用户信息区域 */
+  .explore-info {
+    flex: 1;
+    min-width: 0; /* 允许内部文本截断 */
+  }
+  .explore-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .explore-name a {
+    text-decoration: none;
+    color: #333;
+  }
+  .explore-name a:hover {
+    color: #1e87f0;
+  }
+  .explore-intro {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  .explore-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  /* 确保标签不溢出 */
+  .explore-tags .uk-label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>
+
+<div class="uk-container uk-container-small">
+  <h2>探索用户标签</h2>
+  <form method="get" action="/explore" class="uk-margin">
+    <div class="uk-inline uk-width-1-1">
+      <button class="uk-form-icon uk-form-icon-flip" uk-icon="icon: search" type="submit"></button>
+      <input class="uk-input" type="text" name="q" placeholder="搜索标签..." value="{{.Keyword}}">
+    </div>
+  </form>
+
+  {{if .Users}}
+  <!-- 响应式网格：移动端1列，桌面端2列 -->
+  <div class="uk-child-width-1-1 uk-child-width-1-2@s uk-grid-match" uk-grid>
+    {{range .Users}}
+    {{$user := .}}
+    <div>
+      <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+        <div class="uk-flex uk-flex-top">
+          <!-- 头像区域 -->
+          <div>
+            <img class="explore-avatar" src="{{$user.Avatar}}" alt="avatar">
+          </div>
+          <!-- 信息区域 -->
+          <div class="explore-info">
+            <div class="explore-name truncate">
+              <a href="/_/{{$user.Domain}}" title="{{$user.Name}}">{{$user.Name}}</a>
+            </div>
+            <div class="explore-intro truncate" title="{{$user.Intro}}">
+              {{if $user.Intro}}{{$user.Intro}}{{else}}这个人很懒，什么都没写~{{end}}
+            </div>
+            <div class="explore-tags">
+              {{if $user.TagList}}
+                {{range $index, $tag := $user.TagList}}
+                  <span class="uk-label {{index $user.TagColors $index}}" title="{{$tag}}">{{$tag}}</span>
+                {{end}}
+              {{else}}
+                <span class="uk-text-muted">无标签</span>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+
+  <!-- 分页导航 -->
+  <ul class="uk-pagination uk-flex-center uk-margin-top" uk-margin>
+    {{if gt .Page 1}}
+    <li><a href="?{{if .Keyword}}q={{.Keyword}}&{{end}}page={{.PrevPage}}"><span uk-pagination-previous></span> 上一页</a></li>
+    {{else}}
+    <li class="uk-disabled"><span><span uk-pagination-previous></span> 上一页</span></li>
+    {{end}}
+
+    <li class="uk-active"><span>{{.Page}} / {{.TotalPages}}</span></li>
+
+    {{if lt .Page .TotalPages}}
+    <li><a href="?{{if .Keyword}}q={{.Keyword}}&{{end}}page={{.NextPage}}">下一页 <span uk-pagination-next></span></a></li>
+    {{else}}
+    <li class="uk-disabled"><span>下一页 <span uk-pagination-next></span></span></li>
+    {{end}}
+  </ul>
+
+  {{else}}
+  <div class="uk-alert uk-alert-warning">暂无符合条件的用户。</div>
+  {{end}}
+</div>
+{{template "base/footer" .}}

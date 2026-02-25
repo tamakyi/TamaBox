@@ -30,6 +30,9 @@ type UsersStore interface {
 	ChangePassword(ctx context.Context, id uint, oldPassword, newPassword string) error
 	UpdatePassword(ctx context.Context, id uint, newPassword string) error
 	Deactivate(ctx context.Context, id uint) error
+    GetShowInHome(ctx context.Context, page, pageSize int) ([]*User, int64, error)
+    GetByTag(ctx context.Context, tag string, page, pageSize int) ([]*User, int64, error)
+	UpdateTags(ctx context.Context, id uint, opts UpdateTagsOptions) error
 }
 
 func NewUsersStore(db *gorm.DB) UsersStore {
@@ -65,6 +68,8 @@ type User struct {
 	Notify               NotifyType            `json:"notify"`
 	HarassmentSetting    HarassmentSettingType `json:"harassment_setting"`
 	BlockWords           string                `json:"-"`
+	Tags                 string `json:"tags" gorm:"type:text"`
+	ShowInHome           bool   `json:"show_in_home" gorm:"default:false"`
 }
 
 func (u *User) BeforeCreate(_ *gorm.DB) error {
@@ -115,6 +120,8 @@ type CreateUserOptions struct {
 	Bililink             string
 	Weibolink            string
 	Bloglink             string
+	Tags                 string
+	ShowInHome           bool
 }
 
 var (
@@ -150,6 +157,8 @@ func (db *users) Create(ctx context.Context, opts CreateUserOptions) error {
 		Bililink:             opts.Bililink,
 		Weibolink:            opts.Weibolink,
 		Bloglink:             opts.Bloglink,
+		Tags:                 opts.Tags,
+		ShowInHome:           opts.ShowInHome,
 	}
 	newUser.EncodePassword()
 
@@ -214,28 +223,30 @@ func (db *users) Update(ctx context.Context, id uint, opts UpdateUserOptions) er
 		return errors.Errorf("unexpected notify type: %q", opts.Notify)
 	}
 
-	if err := db.WithContext(ctx).Where("id = ?", id).Updates(&User{
-		Name:                 opts.Name,
-		Avatar:               opts.Avatar,
-		Background:           opts.Background,
-		Intro:                opts.Intro,
-		Qrcodebackcolor:      opts.Qrcodebackcolor,
-		Qrcodecolor:          opts.Qrcodecolor,
-		Dotscale:             opts.Dotscale,
-		BackgroundImage:      opts.BackgroundImage,
-		Backgroundimagealpha: opts.Backgroundimagealpha,
-		Qrcodepdpcolor:       opts.Qrcodepdpcolor,
-		Usernamecolor:        opts.Usernamecolor,
-		Introcolor:           opts.Introcolor,
-		Acfunlink:            opts.Acfunlink,
-		Bililink:             opts.Bililink,
-		Weibolink:            opts.Weibolink,
-		Bloglink:             opts.Bloglink,
-		Notify:               opts.Notify,
-	}).Error; err != nil {
-		return errors.Wrap(err, "update user")
+	updates := map[string]interface{}{
+		"Name":                 opts.Name,
+		"Avatar":               opts.Avatar,
+		"Background":           opts.Background,
+		"Intro":                opts.Intro,
+		"Qrcodebackcolor":      opts.Qrcodebackcolor,
+		"Qrcodecolor":          opts.Qrcodecolor,
+		"Dotscale":             opts.Dotscale,
+		"BackgroundImage":      opts.BackgroundImage,
+		"Backgroundimagealpha": opts.Backgroundimagealpha,
+		"Qrcodepdpcolor":       opts.Qrcodepdpcolor,
+		"Usernamecolor":        opts.Usernamecolor,
+		"Introcolor":           opts.Introcolor,
+		"Acfunlink":            opts.Acfunlink,
+		"Bililink":             opts.Bililink,
+		"Weibolink":            opts.Weibolink,
+		"Bloglink":             opts.Bloglink,
+		"Notify":               opts.Notify,
 	}
-	return nil
+
+    if err := db.WithContext(ctx).Model(&User{}).Where("id = ?", id).Updates(updates).Error; err != nil {
+        return errors.Wrap(err, "update user")
+    }
+    return nil
 }
 
 type HarassmentSettingOptions struct {
@@ -338,4 +349,50 @@ func (db *users) validate(ctx context.Context, opts CreateUserOptions) error {
 	}
 
 	return nil
+}
+
+type UpdateTagsOptions struct {
+	Tags       string
+	ShowInHome bool
+}
+
+func (db *users) UpdateTags(ctx context.Context, id uint, opts UpdateTagsOptions) error {
+	if err := db.WithContext(ctx).Model(&User{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"Tags":       opts.Tags,
+		"ShowInHome": opts.ShowInHome,
+	}).Error; err != nil {
+		return errors.Wrap(err, "update user tags")
+	}
+	return nil
+}
+
+func (db *users) GetShowInHome(ctx context.Context, page, pageSize int) ([]*User, int64, error) {
+    var users []*User
+    var count int64
+
+    if err := db.WithContext(ctx).Model(&User{}).Where("show_in_home = ?", true).Count(&count).Error; err != nil {
+        return nil, 0, errors.Wrap(err, "count show in home users")
+    }
+
+    offset := (page - 1) * pageSize
+    if err := db.WithContext(ctx).Where("show_in_home = ?", true).Offset(offset).Limit(pageSize).Find(&users).Error; err != nil {
+        return nil, 0, errors.Wrap(err, "get show in home users")
+    }
+    return users, count, nil
+}
+
+func (db *users) GetByTag(ctx context.Context, tag string, page, pageSize int) ([]*User, int64, error) {
+    var users []*User
+    var count int64
+
+    query := db.WithContext(ctx).Model(&User{}).Where("show_in_home = ? AND tags IS NOT NULL AND ? = ANY(string_to_array(tags, ','))", true, tag)
+    if err := query.Count(&count).Error; err != nil {
+        return nil, 0, errors.Wrap(err, "count users by tag")
+    }
+
+    offset := (page - 1) * pageSize
+    if err := query.Offset(offset).Limit(pageSize).Find(&users).Error; err != nil {
+        return nil, 0, errors.Wrap(err, "get users by tag")
+    }
+    return users, count, nil
 }

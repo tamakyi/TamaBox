@@ -7,19 +7,24 @@
 <p align="center">
 匿名提问箱 / Anonymous Question Box
 
+基于原版NekoBox做了一些微小的修改。主要体现在：
+ - 率先引入二维码访问，同时增加更多自定义可行性，方便自行创作。
+ - 添加探索页面，允许用户自行选择添加标签并展示，为陌生人提问创造可能。
+ - 稍微调整了屏蔽词策略。
+
 ## 截图
 
 ### QRcode
 ![QRCode](./dev/qrimg.png#gh-light-mode-only)
-
+<br>
 ### Commit with picture
 ![CWP](./dev/commitwithpic.png#gh-light-mode-only)
+<br>
+### Explorer
+![explore_setting](./dev/explore_setting.png#gh-light-mode-only)  
+<br>
+![explore](./dev/explore.png#gh-light-mode-only)  
 
-## 截图
-QRCode:
-[!QRCode](./dev/qrimg.jpg#gh-light-mode-only)
-Commit with Pic
-[!CWP](./dev/commitwithpic.jpg)
 ## 安装
 
 ### 需求

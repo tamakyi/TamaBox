@@ -1,0 +1,99 @@
+{{template "base/header" .}}
+<style>
+  /* 文本截断样式 */
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* 卡片内头像区域 */
+  .explore-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  /* 用户信息区域 */
+  .explore-info {
+    flex: 1;
+    min-width: 0; /* 允许内部文本截断 */
+  }
+  .explore-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .explore-name a {
+    text-decoration: none;
+    color: #333;
+  }
+  .explore-name a:hover {
+    color: #1e87f0;
+  }
+  .explore-intro {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  .explore-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  /* 确保标签不溢出 */
+  .explore-tags .uk-label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>
+
+<div class="uk-container uk-container-small">
+  <h2>探索用户标签</h2>
+  <form method="get" action="/explore" class="uk-margin">
+    <div class="uk-inline uk-width-1-1">
+      <button class="uk-form-icon uk-form-icon-flip" uk-icon="icon: search" type="submit"></button>
+      <input class="uk-input" type="text" name="q" placeholder="搜索标签..." value="{{.Keyword}}">
+    </div>
+  </form>
+
+  {{if .Users}}
+  <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match" uk-grid>
+    {{range .Users}}
+    <div>
+      <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+        <div class="uk-flex uk-flex-top">
+          <!-- 头像区域 -->
+          <div>
+            <img class="explore-avatar" src="{{if .Avatar}}{{.Avatar}}{{else}}/static/default-avatar.png{{end}}" alt="avatar">
+          </div>
+          <!-- 信息区域 -->
+          <div class="explore-info">
+            <div class="explore-name truncate">
+              <a href="/_/{{.Domain}}" title="{{.Name}}">{{.Name}}</a>
+            </div>
+            <div class="explore-intro truncate" title="{{.Intro}}">
+              {{if .Intro}}{{.Intro}}{{else}}这个人很懒，什么都没写~{{end}}
+            </div>
+            <div class="explore-tags">
+              {{if .TagList}}
+                {{range $index, $tag := .TagList}}
+                  <span class="uk-label {{index $.TagColors $index}}" title="{{$tag}}">{{$tag}}</span>
+                {{end}}
+              {{else}}
+                <span class="uk-text-muted">无标签</span>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+  {{else}}
+  <div class="uk-alert uk-alert-warning">暂无符合条件的用户。</div>
+  {{end}}
+</div>
+{{template "base/footer" .}}

@@ -131,6 +131,26 @@
 </div>
 <hr>
 <div class="uk-margin">
+  <form method="post" action="/user/tags/update">
+    {{ .CSRFTokenHTML }}
+    <legend class="uk-legend">标签设置</legend>
+    <div class="uk-margin">
+      <label class="uk-form-label">标签（最多5个，每个最多5字，用逗号分隔）</label>
+      <input name="tags" class="uk-input" type="text" value="{{.LoggedUser.Tags}}" placeholder="例如：动漫,音乐,游戏">
+    </div>
+    <div class="uk-margin">
+      <label>
+        <input name="show_in_home" class="uk-checkbox" type="checkbox" {{ if .LoggedUser.ShowInHome }}checked{{end}}>
+        <span class="uk-text-small"> 在首页展示我的标签（允许其他用户通过标签搜索到我）</span>
+      </label>
+    </div>
+    <div class="uk-margin">
+      <button type="submit" class="uk-button uk-button-primary">更新标签</button>
+    </div>
+  </form>
+</div>
+<hr>
+<div class="uk-margin">
   <legend class="uk-legend">账号设置</legend>
   <dl class="uk-description-list uk-description-list-divider">
     <dt>

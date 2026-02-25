@@ -22,9 +22,9 @@ func runUid(ctx *cli.Context) error {
 		return errors.Wrap(err, "load configuration")
 	}
 
-	dbType := conf.Database.Type // 从配置读取类型（postgres）
+	dbType := conf.Database.Type
 	if dbType == "postgres" {
-		conf.Database.DSN = conf.PostgresDsn() // 使用 PostgreSQL 的 DSN 生成函数
+		conf.Database.DSN = conf.PostgresDsn()
 	} else {
 		conf.Database.DSN = conf.MySQLDsn()
 	}
